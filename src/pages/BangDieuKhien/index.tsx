@@ -9,15 +9,6 @@ function BangDieuKhien() {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, quidem
         quia ex repudiandae nam hic quas maiores quae? Laboriosam quasi, tenetur
         perspiciatis, iste eos iure ducimus nostrum voluptate vel quo vitae
-        corporis ea rem quae omnis officiis molestiae officia perferendis
-        accusantium. Officiis vero quibusdam eos ducimus perferendis ad nam
-        delectus molestias repellendus ea voluptas itaque quia quae et natus
-        aliquam esse, ullam laudantium qui. Nulla suscipit explicabo dignissimos
-        perspiciatis maxime placeat rem quaerat, itaque consectetur illum
-        pariatur molestiae vitae impedit aperiam, aut ratione esse non corrupti
-        temporibus sint laboriosam illo doloremque vero inventore? Deleniti ab
-        voluptatibus quasi cumque praesentium iste fugiat harum culpa soluta
-        iusto quas vitae, maxime quo delectus corrupti! Pariatur voluptates
         consequatur, dolore minima magni quam eaque iste recusandae, explicabo
         dolorem, cum excepturi velit molestiae! Velit corporis in quidem
         nesciunt dignissimos veritatis! Expedita minus ea nulla rerum accusamus,
