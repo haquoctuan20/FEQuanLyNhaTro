@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <Button type="primary">Đây là chữ tiếng việt</Button>
+      <Button type="primary">Đây hihi chữ chữ</Button>
     </div>
   );
 }
