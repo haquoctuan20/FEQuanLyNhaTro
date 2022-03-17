@@ -1,15 +1,21 @@
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'antd/dist/antd.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { HelmetProvider } from 'react-helmet-async';
+import { Provider } from 'react-redux';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
-import 'antd/dist/antd.css';
+import ThemeProviderStyled from './styledComponents/ThemeProviderStyled';
 
 ReactDOM.render(
-  // <React.StrictMode>
-  <App />,
-  // </React.StrictMode>,
-  document.getElementById('root')
+  <HelmetProvider>
+    <ThemeProviderStyled>
+      <App />
+    </ThemeProviderStyled>
+  </HelmetProvider>,
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function
