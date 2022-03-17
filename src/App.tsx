@@ -1,27 +1,44 @@
-import { Button } from 'antd';
+import { ROUTES, ROUTES_PUBLIC } from 'constants/router';
 import React from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import BangDieuKhien from './pages/BangDieuKhien';
+import PrivateRoute from './components/PrivateRoute';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   const subDomain = window.location.host.split('.')[0];
 
   return (
     <div className="App">
-      {subDomain === 'admin' ? (
-        <BrowserRouter>
+      <BrowserRouter>
+        {subDomain === 'admin' ? (
           <Routes>
-            <Route path="/" element={<BangDieuKhien />}></Route>
+            <Route path="/" element={<Navigate to={'/bangdieukhien'} />} />
+
+            {ROUTES.map((route, index) => (
+              <Route key={index} path={route.path} element={route.component} />
+            ))}
+
+            {/* {ROUTES.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              element={<PrivateRoute>{route.component}</PrivateRoute>}
+            />
+          ))} */}
+
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
-        </BrowserRouter>
-      ) : (
-        <BrowserRouter>
+        ) : (
           <Routes>
-            <Route path="/" element={<>user</>}></Route>
+            {ROUTES_PUBLIC.map((route, index) => (
+              <Route key={index} path={route.path} element={route.component} />
+            ))}
+
+            <Route path="/*" element={<>Not found page</>} />
           </Routes>
-        </BrowserRouter>
-      )}
+        )}
+      </BrowserRouter>
     </div>
   );
 }
