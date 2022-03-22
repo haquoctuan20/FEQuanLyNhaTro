@@ -16,7 +16,7 @@ function LayoutPublic(props: Props) {
     <Wrapper>
       <Navbar collapseOnSelect expand="md" sticky="top">
         <Container>
-          <Navbar.Brand href="#home">Lô gô</Navbar.Brand>
+          <Navbar.Brand href="#home">Tiến Hải</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
           <Navbar.Collapse>
