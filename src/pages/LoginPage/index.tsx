@@ -16,29 +16,27 @@ const layout = {
 
 function LoginPage() {
   const navigate = useNavigate();
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onFinish = (values: any) => {
-    LoginService.setDataLocalStorage({ email: values.email });
-    navigate('/');
-    NotificationSuccess('Success', '');
-    // setloading(true);
-    // LoginService.loginAPI(values.email, values.password)
-    //   .then((res) => {
-    //     if (res.data.code !== 200) {
-    //       NotificationError('Error', res.data.message);
-    //       return;
-    //     }
-    //     LoginService.setDataLocalStorage(res.data);
-    //     navigate('/');
-    //     NotificationSuccess('Success', res.data.message);
-    //   })
-    //   .catch((err) => {
-    //     NotificationError('Error', 'Login failed');
-    //   })
-    //   .finally(() => {
-    //     setloading(false);
-    //   });
+    setLoading(true);
+    LoginService.loginAPI(values.username, values.password)
+      .then(res => {
+        console.log('💙TuanHQ💖 ~> onFinish ~> res', res);
+        if (res.data.code !== 0) {
+          NotificationError('Lỗi đăng nhập', res.data.message);
+          return;
+        }
+        LoginService.setDataLocalStorage(res.data.data);
+        navigate('/');
+        NotificationSuccess('Đăng nhập thành công', res.data.message);
+      })
+      .catch(err => {
+        NotificationError('Đăng nhập không thành công', '');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -46,29 +44,29 @@ function LoginPage() {
       <HelmetComponent title="Login" />
 
       <div className="loginContainer">
-        <div className="loginTitle">CMS</div>
+        <div className="loginTitle">QUẢN LÝ NHÀ TRỌ</div>
         <Form onFinish={onFinish} autoComplete="off" {...layout}>
           <Form.Item
-            label="Email"
-            name="email"
+            label="Tên đăng nhập"
+            name="username"
             labelAlign="left"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            rules={[{ required: true, message: 'Chưa nhập tên đăng nhập!' }]}
           >
             <Input />
           </Form.Item>
 
           <Form.Item
-            label="Password"
+            label="Mật khẩu"
             name="password"
             labelAlign="left"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[{ required: true, message: 'Chưa nhập mật khẩu' }]}
           >
             <Input.Password />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
             <Button type="primary" htmlType="submit" loading={loading}>
-              Login
+              Đăng nhập
             </Button>
           </Form.Item>
         </Form>
@@ -88,7 +86,7 @@ const Wrapper = styled.div`
 
   .loginContainer {
     background-color: #fff;
-    width: 420px;
+    width: 620px;
     padding: 20px;
     box-shadow: ${({ theme }) => theme.shadowContainer};
     margin-top: 10%;

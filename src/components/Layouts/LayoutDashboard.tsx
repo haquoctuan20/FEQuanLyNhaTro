@@ -1,5 +1,5 @@
 import { SettingOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Menu } from 'antd';
+import { Button, Dropdown, Menu, Popover } from 'antd';
 import React, { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -19,6 +19,25 @@ function LayoutDashboard(props: Props) {
     navigate('/');
   };
 
+  const content = (
+    <ContentStyled>
+      <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, veniam
+        voluptatibus? Veritatis tenetur, ullam fugiat velit hic ratione quos
+        voluptate.
+      </div>
+
+      <div className="layout-containerButton">
+        <Button type="link"> </Button>
+        <Button type="default" danger onClick={handleLogout}>
+          Đăng xuất
+        </Button>
+      </div>
+    </ContentStyled>
+  );
+
+  const text = <TextStyled>Tài khoản</TextStyled>;
+
   return (
     <Wrapper>
       <div className="layout-header">
@@ -37,24 +56,11 @@ function LayoutDashboard(props: Props) {
           />
         </div>
         <div className="layout-header-account">
-          <Dropdown
-            overlay={
-              <>
-                <Menu>
-                  <Menu.Item key="0">
-                    <p>1st menu item</p>
-                  </Menu.Item>
-                  <Menu.Item key="1">
-                    <p>2nd menu item</p>
-                  </Menu.Item>
-                  <Menu.Divider />
-                  <Button type="link" onClick={handleLogout}>
-                    Logout
-                  </Button>
-                </Menu>
-              </>
-            }
-            placement="bottomRight"
+          <Popover
+            placement="bottomLeft"
+            title={text}
+            content={content}
+            trigger="click"
           >
             <Button
               className="layout-header-setting"
@@ -63,7 +69,7 @@ function LayoutDashboard(props: Props) {
             >
               Account
             </Button>
-          </Dropdown>
+          </Popover>
         </div>
       </div>
       <div className="layout-container">
@@ -123,5 +129,20 @@ const Wrapper = styled.div`
       height: calc(100vh - 60px);
       overflow-y: auto;
     }
+  }
+`;
+
+const TextStyled = styled.div`
+  text-align: center;
+`;
+
+const ContentStyled = styled.div`
+  width: 250px;
+
+  .layout-containerButton {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 `;

@@ -1,4 +1,4 @@
-import BangDieuKhien from 'pages/BangDIeuKhien';
+import BangDieuKhien from 'pages/BangDieuKhien';
 import TrangChu from 'pages/TrangChu';
 
 export const ROUTES = [

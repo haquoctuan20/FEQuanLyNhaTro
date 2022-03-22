@@ -12,6 +12,8 @@ function LeftMenu() {
   const location = useLocation();
   const activeKey = location.pathname.split('/')[1];
 
+  const data = LoginService.getDataLocalStorage();
+
   const MENU = [
     {
       key: 'bangdieukhien',
@@ -48,7 +50,7 @@ function LeftMenu() {
             }
           >
             <div>
-              <div className="sider-account-name">TUANHQ</div>
+              <div className="sider-account-name">{data.username}</div>
             </div>
           </Menu.Item>
           {MENU.map((link: any, index: any) => (

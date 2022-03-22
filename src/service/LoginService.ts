@@ -1,12 +1,12 @@
 import apiClient from './apiClient';
 
 export const LoginService = {
-  loginAPI(email: string, password: string) {
-    const param = { email, password };
+  loginAPI(username: string, password: string) {
+    const param = { username, password };
     return apiClient.request({
       method: 'post',
       data: param,
-      url: '/acc-svc/users/auth/login',
+      url: 'api/v1/login',
     });
   },
 

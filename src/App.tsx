@@ -16,16 +16,12 @@ function App() {
             <Route path="/" element={<Navigate to={'/bangdieukhien'} />} />
 
             {ROUTES.map((route, index) => (
-              <Route key={index} path={route.path} element={route.component} />
+              <Route
+                key={index}
+                path={route.path}
+                element={<PrivateRoute>{route.component}</PrivateRoute>}
+              />
             ))}
-
-            {/* {ROUTES.map((route, index) => (
-            <Route
-              key={index}
-              path={route.path}
-              element={<PrivateRoute>{route.component}</PrivateRoute>}
-            />
-          ))} */}
 
             <Route path="/login" element={<LoginPage />} />
           </Routes>
