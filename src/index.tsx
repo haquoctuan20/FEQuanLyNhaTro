@@ -1,4 +1,3 @@
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'antd/dist/antd.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
