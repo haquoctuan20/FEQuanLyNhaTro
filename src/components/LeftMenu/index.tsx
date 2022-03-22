@@ -1,4 +1,4 @@
-import { PieChartOutlined, TeamOutlined } from '@ant-design/icons';
+import { PieChartOutlined } from '@ant-design/icons';
 import { Image, Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { LoginService } from '../../service/LoginService';
 
 const { Sider } = Layout;
-const { SubMenu } = Menu;
 
 function LeftMenu() {
   const location = useLocation();

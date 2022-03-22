@@ -1,7 +1,7 @@
 import { HeartFilled } from '@ant-design/icons';
 import { Button } from 'antd';
 import React, { ReactNode } from 'react';
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Container, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
