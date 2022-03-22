@@ -28,7 +28,7 @@ function LoginPage() {
           return;
         }
         LoginService.setDataLocalStorage(res.data.data);
-        navigate('/');
+        navigate('/admin/bang-dieu-khien');
         NotificationSuccess('Đăng nhập thành công', res.data.message);
       })
       .catch(err => {

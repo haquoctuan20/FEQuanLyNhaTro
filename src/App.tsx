@@ -6,34 +6,24 @@ import PrivateRoute from './components/PrivateRoute';
 import LoginPage from './pages/LoginPage';
 
 function App() {
-  const subDomain = window.location.host.split('.')[0];
-
   return (
     <div className="App">
       <BrowserRouter>
-        {subDomain === 'admin' ? (
-          <Routes>
-            <Route path="/" element={<Navigate to={'/bangdieukhien'} />} />
+        <Routes>
+          {ROUTES.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              element={<PrivateRoute>{route.component}</PrivateRoute>}
+            />
+          ))}
 
-            {ROUTES.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                element={<PrivateRoute>{route.component}</PrivateRoute>}
-              />
-            ))}
+          {ROUTES_PUBLIC.map((route, index) => (
+            <Route key={index} path={route.path} element={route.component} />
+          ))}
 
-            <Route path="/login" element={<LoginPage />} />
-          </Routes>
-        ) : (
-          <Routes>
-            {ROUTES_PUBLIC.map((route, index) => (
-              <Route key={index} path={route.path} element={route.component} />
-            ))}
-
-            <Route path="/*" element={<>Not found page</>} />
-          </Routes>
-        )}
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
       </BrowserRouter>
     </div>
   );

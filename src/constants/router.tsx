@@ -3,7 +3,7 @@ import TrangChu from 'pages/TrangChu';
 
 export const ROUTES = [
   {
-    path: '/bangdieukhien',
+    path: '/admin/bang-dieu-khien',
     component: <BangDieuKhien />,
   },
 ];
