@@ -22,13 +22,13 @@ function LayoutPublic(props: Props) {
           <Navbar.Collapse>
             <div className="containerLink">
               <Link className="containerLink-link" to="#">
-                Product
+                Giới thiệu
               </Link>
               <Link className="containerLink-link" to="#">
-                Product 2
+                Phòng trọ
               </Link>
               <Link className="containerLink-link" to="#">
-                Product 3
+                Liên hệ
               </Link>
             </div>
 
