@@ -54,7 +54,6 @@
     ]
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^6.0.0",
     "@types/react-helmet": "^6.1.5",
     "@types/styled-components": "^5.1.24"
   }

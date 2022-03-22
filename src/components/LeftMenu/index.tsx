@@ -1,4 +1,4 @@
-import { TeamOutlined } from '@ant-design/icons';
+import { PieChartOutlined, TeamOutlined } from '@ant-design/icons';
 import { Image, Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -17,7 +17,7 @@ function LeftMenu() {
   const MENU = [
     {
       key: 'bangdieukhien',
-      icon: 'fa-solid fa-bandage',
+      icon: <PieChartOutlined />,
       path: '/bangdieukhien',
       title: 'Bảng điều khiển',
     },
@@ -54,7 +54,7 @@ function LeftMenu() {
             </div>
           </Menu.Item>
           {MENU.map((link: any, index: any) => (
-            <Menu.Item key={link.key} icon={<i className={link.icon}></i>}>
+            <Menu.Item key={link.key} icon={link.icon}>
               <Link key={index} to={link.path}>
                 {link.title}
               </Link>
