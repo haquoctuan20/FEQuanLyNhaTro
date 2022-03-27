@@ -14,7 +14,12 @@ function LayoutPublic(props: Props) {
 
   return (
     <Wrapper>
-      <Navbar collapseOnSelect expand="md" sticky="top">
+      <Navbar
+        collapseOnSelect
+        expand="md"
+        sticky="top"
+        className="containerNavbar"
+      >
         <Container>
           <Navbar.Brand href="#home">Tiến Hải</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -40,6 +45,8 @@ function LayoutPublic(props: Props) {
       </Navbar>
 
       {children}
+
+      <div className="footerLayout"></div>
     </Wrapper>
   );
 }
@@ -48,6 +55,13 @@ export default LayoutPublic;
 
 const Wrapper = styled.div`
   font-size: 18px;
+
+  .containerNavbar {
+    /* background: #1890ff; */
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  }
+
   .containerLink {
     width: 100%;
     display: flex;
@@ -55,14 +69,14 @@ const Wrapper = styled.div`
 
     &-link {
       margin: 0px 8px;
-
       color: #000;
+      font-size: 20px;
       text-decoration: none;
     }
   }
 
   .listLike {
-    font-size: 18px;
+    font-size: 20px;
     color: #000;
     display: flex;
     align-items: center;
@@ -83,5 +97,10 @@ const Wrapper = styled.div`
     .listLike {
       margin: 0px auto;
     }
+  }
+
+  .footerLayout {
+    height: 300px;
+    background-color: #333;
   }
 `;
