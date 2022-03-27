@@ -1,6 +1,6 @@
 import { ROUTES, ROUTES_PUBLIC } from 'constants/router';
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import PrivateRoute from './components/PrivateRoute';
 import LoginPage from './pages/LoginPage';
@@ -17,6 +17,8 @@ function App() {
               element={<PrivateRoute>{route.component}</PrivateRoute>}
             />
           ))}
+
+          <Route path="/admin" element={<Navigate to="/admin/phong-tro" />} />
 
           {ROUTES_PUBLIC.map((route, index) => (
             <Route key={index} path={route.path} element={route.component} />

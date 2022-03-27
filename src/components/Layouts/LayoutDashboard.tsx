@@ -16,7 +16,7 @@ function LayoutDashboard(props: Props) {
 
   const handleLogout = () => {
     LoginService.logoutAPI();
-    navigate('/');
+    navigate('/login');
   };
 
   const content = (
@@ -67,7 +67,7 @@ function LayoutDashboard(props: Props) {
               type="link"
               icon={<SettingOutlined />}
             >
-              Account
+              Tài khoản
             </Button>
           </Popover>
         </div>
@@ -89,7 +89,7 @@ const Wrapper = styled.div`
     &-header {
       width: 100%;
       height: 60px;
-      background-color: ${({ theme }) => theme.background2};
+      background-color: #1890ff;
       padding: 0px 16px;
 
       display: flex;
@@ -106,6 +106,9 @@ const Wrapper = styled.div`
         color: ${({ theme }) => theme.text2};
         font-size: 16px;
         font-weight: 500;
+
+        display: flex;
+        align-items: center;
       }
     }
 

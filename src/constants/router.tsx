@@ -1,10 +1,30 @@
 import BangDieuKhien from 'pages/BangDieuKhien';
+import ChiSoDien from 'pages/ChiSoDien/ChiSoDien';
+import QuanLyBaiViet from 'pages/QuanLyBaiViet/QuanLyBaiViet';
+import QuanLyLienHe from 'pages/QuanLyLienHe/QuanLyLienHe';
+import TinhTien from 'pages/TinhTien/TinhTien';
 import TrangChu from 'pages/TrangChu';
 
 export const ROUTES = [
   {
-    path: '/admin/bang-dieu-khien',
+    path: '/admin/phong-tro',
     component: <BangDieuKhien />,
+  },
+  {
+    path: '/admin/chi-so-dien',
+    component: <ChiSoDien />,
+  },
+  {
+    path: '/admin/tinh-tien',
+    component: <TinhTien />,
+  },
+  {
+    path: '/admin/quan-ly-lien-he',
+    component: <QuanLyLienHe />,
+  },
+  {
+    path: '/admin/quan-ly-bai-viet',
+    component: <QuanLyBaiViet />,
   },
 ];
 

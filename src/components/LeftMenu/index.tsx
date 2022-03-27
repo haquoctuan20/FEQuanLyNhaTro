@@ -9,16 +9,40 @@ const { Sider } = Layout;
 
 function LeftMenu() {
   const location = useLocation();
-  const activeKey = location.pathname.split('/')[1];
+  const activeKey = location.pathname.split('/')[2];
 
   const data = LoginService.getDataLocalStorage();
 
   const MENU = [
     {
-      key: 'bangdieukhien',
+      key: 'phong-tro',
       icon: <PieChartOutlined />,
-      path: '/bangdieukhien',
-      title: 'Bảng điều khiển',
+      path: '/admin/phong-tro',
+      title: 'Phòng trọ',
+    },
+    {
+      key: 'chi-so-dien',
+      icon: <PieChartOutlined />,
+      path: '/admin/chi-so-dien',
+      title: 'Chỉ số diện',
+    },
+    {
+      key: 'tinh-tien',
+      icon: <PieChartOutlined />,
+      path: '/admin/tinh-tien',
+      title: 'Tính tiền',
+    },
+    {
+      key: 'quan-ly-lien-he',
+      icon: <PieChartOutlined />,
+      path: '/admin/quan-ly-lien-he',
+      title: 'Quản lý liên hệ',
+    },
+    {
+      key: 'quan-ly-bai-viet',
+      icon: <PieChartOutlined />,
+      path: '/admin/quan-ly-bai-viet',
+      title: 'Quản lý bài viết',
     },
   ];
 
@@ -77,6 +101,10 @@ const Wrapper = styled.div`
     &-container {
       overflow-y: auto;
       height: calc(100vh - 60px);
+
+      a {
+        text-decoration: none;
+      }
 
       /* width */
       ::-webkit-scrollbar {
