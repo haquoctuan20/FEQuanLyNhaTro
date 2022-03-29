@@ -1,4 +1,8 @@
-import { VideoCameraOutlined } from '@ant-design/icons';
+import {
+  CaretLeftOutlined,
+  CaretRightOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
 import { Col, Divider, Row, Image } from 'antd';
 import LayoutPublic from 'components/Layouts/LayoutPublic';
 import React from 'react';
@@ -10,11 +14,15 @@ function TrangChu() {
     <LayoutPublic>
       <Wrapper>
         <div className="home-carousel">
-          <Carousel fade>
+          <Carousel
+            fade
+            nextIcon={<CaretRightOutlined className="icon-carousel" />}
+            prevIcon={<CaretLeftOutlined className="icon-carousel" />}
+          >
             <Carousel.Item className="home-carousel-item">
               <img
                 className="home-carousel-image"
-                src="https://64.media.tumblr.com/0720d562319a714c020710344ed67383/84bd6032ff13f728-fa/s1280x1920/085d228f71280869ce592e242cc1173c4a7c225f.jpg"
+                src="https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg"
                 alt="First slide"
               />
               <Carousel.Caption>
@@ -28,7 +36,7 @@ function TrangChu() {
             <Carousel.Item>
               <img
                 className="home-carousel-image"
-                src="https://64.media.tumblr.com/f421f02d8435391a05e5c060857401dd/8cbdf2653c12b2e3-ee/s1280x1920/b5316a50187d214f5d349bd69878ee22766dbec0.jpg"
+                src="https://blog.ohanaliving.vn/content/images/2020/05/cach-trang-tri-phong-tro-co-gac-lung-8-1.jpg"
                 alt="Second slide"
               />
 
@@ -41,7 +49,7 @@ function TrangChu() {
             <Carousel.Item>
               <img
                 className="home-carousel-image"
-                src="https://64.media.tumblr.com/85bef78f194d48b3d2177d7f4bd91a40/ea2de2f36a1a24e0-16/s1280x1920/20689e1dcad97d3d567bb39a538250d560fbdbb0.jpg"
+                src="https://suachuanhathanhthinh.com/wp-content/uploads/2020/08/bien-phong-nha-tro-cu-thanh-moi-o-hcm-7-600x330.jpg"
                 alt="Third slide"
               />
 
@@ -118,27 +126,31 @@ function TrangChu() {
             <Col md={12} lg={6}>
               <Image
                 width="100%"
-                src="https://64.media.tumblr.com/5221a3e77c0c00f6cf6832a5bbfef4cc/b1636df01dffa611-6e/s1280x1920/1e3fa654f32f183088837cc440d6bec4f5c46168.jpg"
+                src="https://aftavietnam.com.vn/wp-content/uploads/2021/06/mau-phong-tro-co-gac-lung-dep-12.jpg.jpg"
+                className="image-demo"
               />
             </Col>
 
             <Col md={12} lg={6}>
               <Image
                 width="100%"
-                src="https://64.media.tumblr.com/8e81d532e3e7f0445f997fa44c8ff310/e8745a17d9d19e7f-2c/s1280x1920/80690b768f37f43f7cb0bee136c87f705ed3998e.jpg"
+                src="https://nhaodanang.com/wp-content/uploads/2020/08/chon-cau-thang-gac-lung-cho-phong-tro-dien-tich-nho-2.jpg"
+                className="image-demo"
               />
             </Col>
 
             <Col md={12} lg={6}>
               <Image
                 width="100%"
-                src="https://64.media.tumblr.com/9ecb19ae01e708d13a4ec00e437e8218/aaee2cbb75d82401-57/s1280x1920/a8f288403ed5b8e29bcc3d00a0bf11fcb3426c1d.jpg"
+                src="https://img.vinway.vn/uploads/2021/06/29/z2555636678877a4370ff0fb702883452175aa4612c99f.jpg"
+                className="image-demo"
               />
             </Col>
             <Col md={12} lg={6}>
               <Image
                 width="100%"
-                src="https://64.media.tumblr.com/13bb0703652653a1e044e7608ccd3421/ba92671098c29d33-60/s1280x1920/26f99fcc259ff8d6865b28b9f9b89c14b21f7159.jpg"
+                src="https://alonhatro.com/assets/upload/estate/1/cho_thue_phong_tro_30m2_gac_lung_full_noi_that_gio_tu_do_tan_phu1.jpg"
+                className="image-demo"
               />
             </Col>
           </Row>
@@ -187,6 +199,21 @@ const Wrapper = styled.div`
           height: 600px;
         }
       }
+    }
+  }
+
+  .image-demo {
+    width: 100%;
+    height: 350px;
+    object-fit: fill;
+  }
+
+  .icon-carousel {
+    font-size: 30px;
+    color: #000;
+
+    &:hover {
+      font-size: 40px;
     }
   }
 
