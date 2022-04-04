@@ -1,6 +1,9 @@
 import {
+  BorderOuterOutlined,
   CaretLeftOutlined,
   CaretRightOutlined,
+  DollarOutlined,
+  SmileOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Col, Divider, Row, Image } from 'antd';
@@ -67,52 +70,58 @@ function TrangChu() {
         <div className="containerTitle">
           <Container>
             <div className="containerTitle-title">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptates ex quia repudiandae dolorem pariatur, ratione
-              laboriosam porro accusantium facilis facere officiis reiciendis
-              vero earum consectetur ab eveniet quam at.
+              Nhà trọ Tiến Hải là một cái tên nổi bật với những khu trọ tốt tại
+              khu vực phường Phú Diễn, quận Bắc Từ Liêm, thành phố Hà Nội.
             </div>
             <div className="containerTitle-sub">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptates ex quia repudianda
+              Khu trọ được được đánh giá là khu trọ tốt với các ưu điểm nổi bật
+              so với các khu trọ khác trong khu vực.
             </div>
           </Container>
         </div>
 
         <Container>
           <Row gutter={[8, 16]} className="containerInfo">
-            <Col lg={8}>
+            <Col lg={6}>
               <div className="info">
                 <VideoCameraOutlined className="info-icon" />
                 <div className="info-title">An toàn</div>
                 <div className="info-sub">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptatum nostrum quae esse voluptatem incidunt consectetur.
-                  Laboriosam quia,
+                  Trang bị camera các tầng và lối đi, cổng ra vào sử dụng khóa
+                  vân tay.
                 </div>
               </div>
             </Col>
 
-            <Col lg={8}>
+            <Col lg={6}>
               <div className="info">
-                <VideoCameraOutlined className="info-icon" />
-                <div className="info-title">An toàn</div>
+                <BorderOuterOutlined className="info-icon" />
+                <div className="info-title">Diện tích</div>
                 <div className="info-sub">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptatum nostrum quae esse voluptatem incidunt consectetur.
-                  Laboriosam quia,
+                  So với mặt bằng chung phòng trọ trong khu vực, bạn sẽ được
+                  trải nghiệm phòng trọ với không gian rộng rãi.
                 </div>
               </div>
             </Col>
 
-            <Col lg={8}>
+            <Col lg={6}>
               <div className="info">
-                <VideoCameraOutlined className="info-icon" />
-                <div className="info-title">An toàn</div>
+                <SmileOutlined className="info-icon" />
+                <div className="info-title">Không chung chủ</div>
                 <div className="info-sub">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptatum nostrum quae esse voluptatem incidunt consectetur.
-                  Laboriosam quia,
+                  Khu trọ độc lập khi không ở, sinh hoạt chung cùng chủ trọ tạo
+                  cảm giác tự do, thoải mái cho khách hàng.
+                </div>
+              </div>
+            </Col>
+
+            <Col lg={6}>
+              <div className="info">
+                <DollarOutlined className="info-icon" />
+                <div className="info-title">Giá</div>
+                <div className="info-sub">
+                  Giá phòng tốt nhất trong khu vực, khó có thể tìm được được căn
+                  phòng tốt hơn với mức giá chúng tôi đưa ra.
                 </div>
               </div>
             </Col>
