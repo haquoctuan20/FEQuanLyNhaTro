@@ -1,4 +1,4 @@
-import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { DollarOutlined, HomeOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Col, Divider, Popconfirm, Row, Space } from "antd";
 import HelmetComponent from "components/HelmetComponent";
 import LayoutDashboard from "components/Layouts/LayoutDashboard";
@@ -10,6 +10,7 @@ import { PhongTroServices } from "service/PhongTroServices";
 import { ToaNhaServices } from "service/ToaNhaServices";
 import styled from "styled-components";
 import ModalTaoPhong from "./components/ModalTaoPhong";
+import ModalThemKhach from "./components/ModalThemKhach";
 
 function BangDieuKhien() {
   const [openTaoPhong, setOpenTaoPhong] = useState(false);
@@ -20,6 +21,10 @@ function BangDieuKhien() {
   const [toaNha, setToaNha] = useState([]);
   const [toaNhaSelected, settoaNhaSelected] = useState("all");
 
+  const [openThemKhach, setOpenThemKhach] = useState(false);
+  const [idPhong, setIdPhong] = useState("");
+
+  // TẠO PHÒNG
   const handleOpenTaoPhong = () => {
     setOpenTaoPhong(true);
   };
@@ -27,6 +32,18 @@ function BangDieuKhien() {
   const handleCloseTaoPhong = () => {
     setOpenTaoPhong(false);
   };
+  // END TẠO PHÒNG
+
+  // THÊM KHÁCH
+  const handleOpenThemKhach = (id: string) => {
+    setIdPhong(id);
+    setOpenThemKhach(true);
+  };
+
+  const handleCloseThemKhach = () => {
+    setOpenThemKhach(false);
+  };
+  // END THÊM KHÁCH
 
   const handleFilterToaNha = (id: string) => {
     settoaNhaSelected(id);
@@ -56,6 +73,7 @@ function BangDieuKhien() {
   };
 
   const handleDeleteRoom = (id: string) => {
+    setLoading(true);
     PhongTroServices.deleteRoom(id)
       .then((res) => {
         if (res.data.code !== 0) {
@@ -68,6 +86,23 @@ function BangDieuKhien() {
       })
       .catch((err) => {
         NotificationError("Lỗi khi xóa phòng trọ", "");
+      });
+  };
+
+  const handleCheckoutRoom = (idKhachHang: string, idPhong: string) => {
+    const params = { idKhachHang, idPhong };
+    PhongTroServices.checkoutRoom(params)
+      .then((res) => {
+        if (res.data.code !== 0) {
+          NotificationError("Lỗi khi trả phòng trọ", "");
+          return;
+        }
+
+        NotificationSuccess("Trả phòng trọ thành công", "");
+        handleRefresh();
+      })
+      .catch((err) => {
+        NotificationError("Lỗi khi trả phòng trọ", "");
       });
   };
 
@@ -136,42 +171,66 @@ function BangDieuKhien() {
           <Row gutter={[8, 8]} className="containerRoom">
             {dataPhong.map((p: any, index) => (
               <Col md={12} lg={8} xl={6} key={index}>
-                <div className="containerRoom-room">
+                <div
+                  className={`containerRoom-room ${
+                    p.dangThue && "containerRoom-room-active"
+                  }`}
+                >
                   <div className="containerRoom-numberRoom ">
                     <HomeOutlined className="me-2" /> {p.soPhong} - {p.toaNha.tenToaNha}
                   </div>
 
-                  <div className="containerRoom-user ">
-                    <UserOutlined className="me-2" /> Ha quoc tuan
+                  <div>
+                    {p.dangThue ? (
+                      <>
+                        <div className="containerRoom-user ">
+                          <UserOutlined className="me-2" /> {p.khachHang.tenKhachHang}
+                        </div>
+                        <Space>
+                          <Popconfirm
+                            title="Bạn chắc chắn khách hàng muốn trả phòng này?"
+                            okText="Đồng ý"
+                            cancelText="Hủy"
+                            onConfirm={() => handleCheckoutRoom(p.khachHang._id, p._id)}
+                          >
+                            <Button type="primary">Trả phòng</Button>
+                          </Popconfirm>
+
+                          <Button type="primary" danger>
+                            Sửa
+                          </Button>
+                        </Space>
+                      </>
+                    ) : (
+                      <>
+                        <Button type="primary" onClick={() => handleOpenThemKhach(p._id)}>
+                          Thêm khách
+                        </Button>
+                      </>
+                    )}
                   </div>
 
-                  <div className="containerRoom-user ">
-                    <UserOutlined className="me-2" /> {p.gia}
+                  <div>
+                    <div className="containerRoom-price ">
+                      <DollarOutlined className="me-2" /> {p.gia} VNĐ
+                    </div>
+                    <Space>
+                      <Button type="primary">Sửa phòng</Button>
+
+                      {!p.dangThue && (
+                        <Popconfirm
+                          title="Bạn chắc chắn muốn xóa phòng này?"
+                          okText="Xóa"
+                          cancelText="Hủy"
+                          onConfirm={() => handleDeleteRoom(p._id)}
+                        >
+                          <Button type="primary" danger>
+                            Xóa phòng
+                          </Button>
+                        </Popconfirm>
+                      )}
+                    </Space>
                   </div>
-
-                  <Space>
-                    <Button type="primary">Trả phòng</Button>
-                    <Button type="primary" danger>
-                      Sửa
-                    </Button>
-                  </Space>
-
-                  <Divider></Divider>
-
-                  <Space>
-                    <Button type="primary">Sửa phòng</Button>
-
-                    <Popconfirm
-                      title="Bạn chắc chắn muốn xóa phòng này?"
-                      okText="Xóa"
-                      cancelText="Hủy"
-                      onConfirm={() => handleDeleteRoom(p._id)}
-                    >
-                      <Button type="primary" danger>
-                        Xóa phòng
-                      </Button>
-                    </Popconfirm>
-                  </Space>
                 </div>
               </Col>
             ))}
@@ -182,6 +241,13 @@ function BangDieuKhien() {
           visible={openTaoPhong}
           onClose={handleCloseTaoPhong}
           onRefresh={handleGetAllPhongTro}
+        />
+
+        <ModalThemKhach
+          visible={openThemKhach}
+          onClose={handleCloseThemKhach}
+          onRefresh={handleGetAllPhongTro}
+          idPhong={idPhong}
         />
       </Wrapper>
     </LayoutDashboard>
@@ -206,7 +272,23 @@ const Wrapper = styled.div`
     &-room {
       border: 1px solid #c3c3c3;
       padding: 6px;
+      min-height: 210px;
       /* max-width: 240px; */
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        border-color: #1890ff;
+      }
+
+      &-active {
+        background-color: #1890ff26;
+      }
     }
 
     &-numberRoom {
@@ -223,6 +305,14 @@ const Wrapper = styled.div`
       display: flex;
       align-items: center;
       margin-bottom: 4px;
+    }
+
+    &-price {
+      display: flex;
+      align-items: center;
+      margin: 8px 0px;
+
+      border-top: 1px solid #c3c3c3;
     }
   }
 `;

@@ -22,4 +22,20 @@ export const PhongTroServices = {
       url: "api/v1/phong/" + id,
     });
   },
+
+  addCustomer(data) {
+    return apiClient.request({
+      method: "POST",
+      data,
+      url: "api/v1/khachhang",
+    });
+  },
+
+  checkoutRoom(data) {
+    return apiClient.request({
+      method: "POST",
+      data,
+      url: "api/v1/khachhang/traPhong",
+    });
+  },
 };
