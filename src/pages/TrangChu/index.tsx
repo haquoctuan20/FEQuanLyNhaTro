@@ -5,12 +5,14 @@ import {
   DollarOutlined,
   SmileOutlined,
   VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Col, Divider, Row, Image } from 'antd';
-import LayoutPublic from 'components/Layouts/LayoutPublic';
-import React from 'react';
-import { Carousel, Container } from 'react-bootstrap';
-import styled from 'styled-components';
+  SelectOutlined,
+} from "@ant-design/icons";
+import { Col, Divider, Row, Image, Button } from "antd";
+import LayoutPublic from "components/Layouts/LayoutPublic";
+import React from "react";
+import { Carousel, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 function TrangChu() {
   return (
@@ -30,9 +32,7 @@ function TrangChu() {
               />
               <Carousel.Caption>
                 <h3>First slide label</h3>
-                <p>
-                  Nulla vitae elit libero, a pharetra augue mollis interdum.
-                </p>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
               </Carousel.Caption>
             </Carousel.Item>
 
@@ -58,10 +58,7 @@ function TrangChu() {
 
               <Carousel.Caption>
                 <h3>Third slide label</h3>
-                <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl
-                  consectetur.
-                </p>
+                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
@@ -70,25 +67,28 @@ function TrangChu() {
         <div className="containerTitle">
           <Container>
             <div className="containerTitle-title">
-              Nhà trọ Tiến Hải là một cái tên nổi bật với những khu trọ tốt tại
-              khu vực phường Phú Diễn, quận Bắc Từ Liêm, thành phố Hà Nội.
+              Nhà trọ Tiến Hải là một cái tên nổi bật với những khu trọ tốt tại khu vực
+              phường Phú Diễn, quận Bắc Từ Liêm, thành phố Hà Nội.
             </div>
             <div className="containerTitle-sub">
-              Khu trọ được được đánh giá là khu trọ tốt với các ưu điểm nổi bật
-              so với các khu trọ khác trong khu vực.
+              Khu trọ được được đánh giá là khu trọ tốt với các ưu điểm nổi bật so với các
+              khu trọ khác trong khu vực.
+              <Button type="link">
+                <Link to="/gioi-thieu">Tìm hiểu thêm</Link>
+              </Button>
             </div>
           </Container>
         </div>
 
         <Container>
-          <Row gutter={[8, 16]} className="containerInfo">
+          <Row className="containerInfo">
             <Col lg={6}>
               <div className="info">
                 <VideoCameraOutlined className="info-icon" />
                 <div className="info-title">An toàn</div>
                 <div className="info-sub">
-                  Trang bị camera các tầng và lối đi, cổng ra vào sử dụng khóa
-                  vân tay.
+                  Hành lang và cầu trang của khu trọ được trang bị camera và đèn tự động,
+                  cổng ra vào sử dụng khóa vân tay.
                 </div>
               </div>
             </Col>
@@ -98,8 +98,8 @@ function TrangChu() {
                 <BorderOuterOutlined className="info-icon" />
                 <div className="info-title">Diện tích</div>
                 <div className="info-sub">
-                  So với mặt bằng chung phòng trọ trong khu vực, bạn sẽ được
-                  trải nghiệm phòng trọ với không gian rộng rãi.
+                  So với mặt bằng chung phòng trọ trong khu vực, bạn sẽ được trải nghiệm
+                  phòng trọ với không gian rộng rãi.
                 </div>
               </div>
             </Col>
@@ -109,8 +109,8 @@ function TrangChu() {
                 <SmileOutlined className="info-icon" />
                 <div className="info-title">Không chung chủ</div>
                 <div className="info-sub">
-                  Khu trọ độc lập khi không ở, sinh hoạt chung cùng chủ trọ tạo
-                  cảm giác tự do, thoải mái cho khách hàng.
+                  Khu trọ độc lập khi không ở, sinh hoạt chung cùng chủ trọ tạo cảm giác
+                  tự do, thoải mái cho khách hàng.
                 </div>
               </div>
             </Col>
@@ -120,8 +120,8 @@ function TrangChu() {
                 <DollarOutlined className="info-icon" />
                 <div className="info-title">Giá</div>
                 <div className="info-sub">
-                  Giá phòng tốt nhất trong khu vực, khó có thể tìm được được căn
-                  phòng tốt hơn với mức giá chúng tôi đưa ra.
+                  Giá phòng tốt nhất trong khu vực, khó có thể tìm được được căn phòng tốt
+                  hơn với mức giá chúng tôi đưa ra.
                 </div>
               </div>
             </Col>
@@ -131,12 +131,19 @@ function TrangChu() {
         <Divider className=" mt-5">Hình ảnh</Divider>
 
         <Container className="mb-5">
-          <Row gutter={[8, 8]}>
+          <Row justify="center" gutter={[8, 8]}>
             <Col md={12} lg={6}>
               <Image
                 width="100%"
                 src="https://aftavietnam.com.vn/wp-content/uploads/2021/06/mau-phong-tro-co-gac-lung-dep-12.jpg.jpg"
                 className="image-demo"
+                preview={{
+                  mask: (
+                    <>
+                      <SelectOutlined /> Phóng to
+                    </>
+                  ),
+                }}
               />
             </Col>
 
@@ -145,6 +152,13 @@ function TrangChu() {
                 width="100%"
                 src="https://nhaodanang.com/wp-content/uploads/2020/08/chon-cau-thang-gac-lung-cho-phong-tro-dien-tich-nho-2.jpg"
                 className="image-demo"
+                preview={{
+                  mask: (
+                    <>
+                      <SelectOutlined /> Phóng to
+                    </>
+                  ),
+                }}
               />
             </Col>
 
@@ -153,6 +167,13 @@ function TrangChu() {
                 width="100%"
                 src="https://img.vinway.vn/uploads/2021/06/29/z2555636678877a4370ff0fb702883452175aa4612c99f.jpg"
                 className="image-demo"
+                preview={{
+                  mask: (
+                    <>
+                      <SelectOutlined /> Phóng to
+                    </>
+                  ),
+                }}
               />
             </Col>
             <Col md={12} lg={6}>
@@ -160,6 +181,13 @@ function TrangChu() {
                 width="100%"
                 src="https://alonhatro.com/assets/upload/estate/1/cho_thue_phong_tro_30m2_gac_lung_full_noi_that_gio_tu_do_tan_phu1.jpg"
                 className="image-demo"
+                preview={{
+                  mask: (
+                    <>
+                      <SelectOutlined /> Phóng to
+                    </>
+                  ),
+                }}
               />
             </Col>
           </Row>
