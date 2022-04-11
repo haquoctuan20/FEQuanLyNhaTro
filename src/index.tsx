@@ -1,12 +1,13 @@
-import 'antd/dist/antd.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import App from './App';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import ThemeProviderStyled from './styledComponents/ThemeProviderStyled';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "antd/dist/antd.css";
+import React from "react";
+import ReactDOM from "react-dom";
+import { HelmetProvider } from "react-helmet-async";
+import App from "./App";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import ThemeProviderStyled from "./styledComponents/ThemeProviderStyled";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
   <HelmetProvider>
@@ -14,7 +15,7 @@ ReactDOM.render(
       <App />
     </ThemeProviderStyled>
   </HelmetProvider>,
-  document.getElementById('root'),
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

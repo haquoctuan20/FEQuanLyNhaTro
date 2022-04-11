@@ -1,12 +1,12 @@
-import { notification } from 'antd';
+import { notification } from "antd";
 
 export const NotificationSuccess = (title: string, message: string) => {
   notification.open({
     message: title,
     description: message,
-    placement: 'topRight',
+    placement: "bottomRight",
     style: {
-      borderLeft: '5px solid green',
+      borderLeft: "5px solid green",
     },
   });
 };
@@ -15,9 +15,9 @@ export const NotificationError = (title: string, message: string) => {
   notification.open({
     message: title,
     description: message,
-    placement: 'topRight',
+    placement: "bottomRight",
     style: {
-      borderLeft: '5px solid red',
+      borderLeft: "5px solid red",
     },
   });
 };

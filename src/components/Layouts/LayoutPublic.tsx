@@ -1,17 +1,30 @@
 import { HeartFilled } from "@ant-design/icons";
-import { Badge, Button } from "antd";
-import React, { ReactNode } from "react";
+import { BackTop, Badge, Button, Col, Row } from "antd";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { ChiTietPhongTroService } from "service/ChiTietPhongTroService";
 import styled from "styled-components";
 import LOGO from "../../assets/logo.png";
+import LOGOwhite from "../../assets/logo-white.png";
 
 interface Props {
   children: ReactNode;
+  triggerLoadList?: boolean;
 }
 
 function LayoutPublic(props: Props) {
-  const { children } = props;
+  const { children, triggerLoadList } = props;
+
+  const initXemSau = ChiTietPhongTroService.getListXemSau();
+  const [listXemSau, setListXemSau] = useState(initXemSau ? initXemSau : []);
+
+  useEffect(() => {
+    if (triggerLoadList !== undefined) {
+      const list = ChiTietPhongTroService.getListXemSau();
+      setListXemSau(list ? list : []);
+    }
+  }, [triggerLoadList]);
 
   return (
     <Wrapper>
@@ -40,7 +53,7 @@ function LayoutPublic(props: Props) {
               <Button type="link" icon={<HeartFilled />} className="listLike">
                 Xem sau{" "}
                 <Badge
-                  count={10}
+                  count={listXemSau.length}
                   style={{ marginLeft: "4px", backgroundColor: "#1890ff" }}
                 />
               </Button>
@@ -48,10 +61,29 @@ function LayoutPublic(props: Props) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
       {children}
 
-      <div className="footerLayout"></div>
+      <div className="footerLayout">
+        <Row className="container" justify="space-around" align="middle">
+          <Col span={8}>
+            <img src={LOGOwhite} alt="Nhà trọ Tiến Hải" className="logoPage" />
+            <div>
+              Liên hệ: <a href="tel:0587049999">0587 049 999</a>
+            </div>
+          </Col>
+          <Col span={8}>
+            Thiết kế bởi{" "}
+            <Link
+              to="https://github.com/haquoctuan20/FEQuanLyNhaTro"
+              style={{ color: "#1890ff" }}
+            >
+              TuanHQ
+            </Link>
+          </Col>
+        </Row>
+      </div>
+
+      <BackTop duration={300} />
     </Wrapper>
   );
 }
@@ -122,7 +154,13 @@ const Wrapper = styled.div`
   }
 
   .footerLayout {
-    height: 300px;
+    padding: 12px 0px;
+    color: #fff;
     background-color: #333;
+
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
   }
 `;

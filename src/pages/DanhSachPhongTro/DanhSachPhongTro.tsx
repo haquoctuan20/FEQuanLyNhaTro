@@ -14,6 +14,7 @@ function DanhSachPhongTro() {
   const screens = useBreakpoint();
 
   const [visibleFilter, setVisibleFilter] = useState(false);
+  const [triggerLoadList, setTriggerLoadList] = useState(true);
 
   const openFilterPhongTro = () => {
     setVisibleFilter(true);
@@ -23,8 +24,12 @@ function DanhSachPhongTro() {
     setVisibleFilter(false);
   };
 
+  const callbackPhongTro = () => {
+    setTriggerLoadList(!triggerLoadList);
+  };
+
   return (
-    <LayoutPublic>
+    <LayoutPublic triggerLoadList={triggerLoadList}>
       <Wrapper>
         <TitlePagePublic title={["Trang chủ", "Phòng trọ"]} />
 
@@ -63,36 +68,36 @@ function DanhSachPhongTro() {
               </Drawer>
 
               {/* PHONG TRO */}
-              <Row>
+              <Row gutter={[8, 0]}>
                 <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro />
+                  <PhongTro callback={callbackPhongTro} />
                 </Col>
                 <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro />
+                  <PhongTro callback={callbackPhongTro} />
                 </Col>
                 <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro />
+                  <PhongTro callback={callbackPhongTro} />
                 </Col>
                 <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro />
+                  <PhongTro callback={callbackPhongTro} />
                 </Col>
                 <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro />
+                  <PhongTro callback={callbackPhongTro} />
                 </Col>
                 <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro />
+                  <PhongTro callback={callbackPhongTro} />
                 </Col>
                 <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro />
+                  <PhongTro callback={callbackPhongTro} />
                 </Col>
                 <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro />
+                  <PhongTro callback={callbackPhongTro} />
                 </Col>
                 <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro />
+                  <PhongTro callback={callbackPhongTro} />
                 </Col>
                 <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro />
+                  <PhongTro callback={callbackPhongTro} />
                 </Col>
               </Row>
 
@@ -111,6 +116,8 @@ export default DanhSachPhongTro;
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 66px);
+  background: #f5f5f5;
+
   .pagination {
     display: flex;
     justify-content: center;

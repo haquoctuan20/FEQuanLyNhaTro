@@ -1,5 +1,6 @@
 import BangDieuKhien from "pages/BangDieuKhien";
 import ChiSoDien from "pages/ChiSoDien/ChiSoDien";
+import ChiTietPhongTro from "pages/ChiTietPhongTro/ChiTietPhongTro";
 import DanhSachPhongTro from "pages/DanhSachPhongTro/DanhSachPhongTro";
 import DanhSachXemSau from "pages/DanhSachXemSau/DanhSachXemSau";
 import GioiThieu from "pages/GioiThieu/GioiThieu";
@@ -35,6 +36,10 @@ export const ROUTES_PUBLIC = [
   {
     path: "/",
     component: <TrangChu />,
+  },
+  {
+    path: "/phong-tro/:id",
+    component: <ChiTietPhongTro />,
   },
   {
     path: "/danh-sach-phong-tro",
