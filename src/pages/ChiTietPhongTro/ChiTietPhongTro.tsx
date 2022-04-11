@@ -8,6 +8,7 @@ import { ChiTietPhongTroService } from "service/ChiTietPhongTroService";
 import { randomString } from "service/FAKEDATA";
 import styled from "styled-components";
 import ModalLienHe from "./components/ModalLienHe";
+const ReactQuill = require("react-quill");
 
 const dataImage = [
   "https://64.media.tumblr.com/179f9fc81282f8f78d324a0f28af6a1b/463d24ceb4393202-26/s1280x1920/e0828ea4418a0e82fe1142cd73c32c4aa6ac4ba1.jpg",
@@ -22,6 +23,13 @@ function ChiTietPhongTro() {
   const [bigImage, setBigImage] = useState(dataImage[0]);
   const [openLienHe, setOpenLienHe] = useState(false);
   const [triggerLoadList, setTriggerLoadList] = useState(true);
+
+  const [value, setValue] = useState("");
+
+  const onChange = (value: any) => {
+    console.log("❗TuanHQ🐞 💻 onChange 💻 value", value);
+    setValue(value);
+  };
 
   const openModalLienHe = () => {
     setOpenLienHe(true);
@@ -117,6 +125,10 @@ function ChiTietPhongTro() {
               </Space>
             </Col>
           </Row>
+
+          <ReactQuill value={value} onChange={onChange} />
+
+          <div dangerouslySetInnerHTML={{ __html: value }}></div>
         </Container>
 
         <ModalLienHe visible={openLienHe} onClose={closeModalLienHe} />
