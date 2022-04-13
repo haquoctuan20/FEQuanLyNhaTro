@@ -1,10 +1,11 @@
-import { SettingOutlined } from '@ant-design/icons';
-import { Button, Popover } from 'antd';
-import React, { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { LoginService } from '../../service/LoginService';
-import LeftMenu from '../LeftMenu';
+import { SettingOutlined } from "@ant-design/icons";
+import { Button, Popover } from "antd";
+import React, { ReactNode } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { LoginService } from "../../service/LoginService";
+import LeftMenu from "../LeftMenu";
+import LOGO from "../../assets/logo.png";
 
 interface Props {
   children: ReactNode;
@@ -16,15 +17,14 @@ function LayoutDashboard(props: Props) {
 
   const handleLogout = () => {
     LoginService.logoutAPI();
-    navigate('/login');
+    navigate("/login");
   };
 
   const content = (
     <ContentStyled>
       <div>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, veniam
-        voluptatibus? Veritatis tenetur, ullam fugiat velit hic ratione quos
-        voluptate.
+        voluptatibus? Veritatis tenetur, ullam fugiat velit hic ratione quos voluptate.
       </div>
 
       <div className="layout-containerButton">
@@ -42,26 +42,12 @@ function LayoutDashboard(props: Props) {
     <Wrapper>
       <div className="layout-header">
         <div className="layout-header-logo">
-          <img
-            src="https://i.pinimg.com/originals/e5/93/ab/e593ab0589d5f1b389e4dfbcce2bce20.gif"
-            alt="logo"
-          />
-          <img
-            src="https://i.pinimg.com/originals/e5/93/ab/e593ab0589d5f1b389e4dfbcce2bce20.gif"
-            alt="logo"
-          />
-          <img
-            src="https://i.pinimg.com/originals/e5/93/ab/e593ab0589d5f1b389e4dfbcce2bce20.gif"
-            alt="logo"
-          />
+          <Link to="/admin">
+            <img src={LOGO} alt="Nhà trọ Tiến Hải" className="logoPage" />
+          </Link>
         </div>
         <div className="layout-header-account">
-          <Popover
-            placement="bottomLeft"
-            title={text}
-            content={content}
-            trigger="click"
-          >
+          <Popover placement="bottomLeft" title={text} content={content} trigger="click">
             <Button
               className="layout-header-setting"
               type="link"
@@ -97,7 +83,7 @@ const Wrapper = styled.div`
       justify-content: space-between;
 
       &-logo {
-        & > img {
+        & img {
           height: 55px;
         }
       }

@@ -1,48 +1,48 @@
-import { PieChartOutlined } from '@ant-design/icons';
-import { Image, Layout, Menu } from 'antd';
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
-import { LoginService } from '../../service/LoginService';
+import { PieChartOutlined } from "@ant-design/icons";
+import { Layout, Menu } from "antd";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { LoginService } from "../../service/LoginService";
 
 const { Sider } = Layout;
 
 function LeftMenu() {
   const location = useLocation();
-  const activeKey = location.pathname.split('/')[2];
+  const activeKey = location.pathname.split("/")[2];
 
   const data = LoginService.getDataLocalStorage();
 
   const MENU = [
     {
-      key: 'phong-tro',
+      key: "phong-tro",
       icon: <PieChartOutlined />,
-      path: '/admin/phong-tro',
-      title: 'Phòng trọ',
+      path: "/admin/phong-tro",
+      title: "Phòng trọ",
     },
     {
-      key: 'chi-so-dien',
+      key: "chi-so-dien",
       icon: <PieChartOutlined />,
-      path: '/admin/chi-so-dien',
-      title: 'Chỉ số diện',
+      path: "/admin/chi-so-dien",
+      title: "Chỉ số diện",
     },
     {
-      key: 'tinh-tien',
+      key: "tinh-tien",
       icon: <PieChartOutlined />,
-      path: '/admin/tinh-tien',
-      title: 'Tính tiền',
+      path: "/admin/tinh-tien",
+      title: "Tính tiền",
     },
     {
-      key: 'quan-ly-lien-he',
+      key: "quan-ly-lien-he",
       icon: <PieChartOutlined />,
-      path: '/admin/quan-ly-lien-he',
-      title: 'Quản lý liên hệ',
+      path: "/admin/quan-ly-lien-he",
+      title: "Quản lý liên hệ",
     },
     {
-      key: 'quan-ly-bai-viet',
+      key: "quan-ly-bai-viet",
       icon: <PieChartOutlined />,
-      path: '/admin/quan-ly-bai-viet',
-      title: 'Quản lý bài viết',
+      path: "/admin/quan-ly-bai-viet",
+      title: "Quản lý bài viết",
     },
   ];
 
@@ -61,17 +61,7 @@ function LeftMenu() {
         onCollapse={onCollapse}
       >
         <Menu theme="dark" defaultSelectedKeys={[activeKey]} mode="inline">
-          <Menu.Item
-            key="null"
-            className="sider-account"
-            icon={
-              <Image
-                width={52}
-                src="https://64.media.tumblr.com/a5bfe552de953fc66a964b84efd160a3/4c508677959fdec3-91/s1280x1920/4d144b48ded0b9d259df7f08bfb37a13152115a6.jpg"
-                className="sider-img"
-              />
-            }
-          >
+          <Menu.Item key="null" className="sider-account">
             <div>
               <div className="sider-account-name">{data.username}</div>
             </div>
