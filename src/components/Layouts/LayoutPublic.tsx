@@ -51,7 +51,7 @@ function LayoutPublic(props: Props) {
 
             <Link to="/xem-sau" style={{ textDecoration: "none" }}>
               <Button type="link" icon={<HeartFilled />} className="listLike">
-                Xem sau{" "}
+                Danh sách xem sau{" "}
                 <Badge
                   count={listXemSau.length}
                   style={{ marginLeft: "4px", backgroundColor: "#1890ff" }}

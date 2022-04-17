@@ -18,7 +18,7 @@ function LeftMenu() {
       key: "phong-tro",
       icon: <PieChartOutlined />,
       path: "/admin/phong-tro",
-      title: "Phòng trọ",
+      title: "Quản lý phòng trọ",
     },
     {
       key: "chi-so-dien",
@@ -30,7 +30,7 @@ function LeftMenu() {
       key: "tinh-tien",
       icon: <PieChartOutlined />,
       path: "/admin/tinh-tien",
-      title: "Tính tiền",
+      title: "Tính tiền phòng",
     },
     {
       key: "quan-ly-lien-he",
@@ -62,9 +62,7 @@ function LeftMenu() {
       >
         <Menu theme="dark" defaultSelectedKeys={[activeKey]} mode="inline">
           <Menu.Item key="null" className="sider-account">
-            <div>
-              <div className="sider-account-name">{data.username}</div>
-            </div>
+            <div>{/* <div className="sider-account-name">{data.username}</div> */}</div>
           </Menu.Item>
           {MENU.map((link: any, index: any) => (
             <Menu.Item key={link.key} icon={link.icon}>

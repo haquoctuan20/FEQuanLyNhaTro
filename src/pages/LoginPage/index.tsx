@@ -1,13 +1,10 @@
-import { Button, Form, Input } from 'antd';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import HelmetComponent from '../../components/HelmetComponent';
-import {
-  NotificationError,
-  NotificationSuccess,
-} from '../../components/Notification';
-import { LoginService } from '../../service/LoginService';
+import { Button, Form, Input } from "antd";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import HelmetComponent from "../../components/HelmetComponent";
+import { NotificationError, NotificationSuccess } from "../../components/Notification";
+import { LoginService } from "../../service/LoginService";
 
 const layout = {
   labelCol: { span: 6 },
@@ -21,18 +18,18 @@ function LoginPage() {
   const onFinish = (values: any) => {
     setLoading(true);
     LoginService.loginAPI(values.username, values.password)
-      .then(res => {
-        console.log('💙TuanHQ💖 ~> onFinish ~> res', res);
+      .then((res) => {
+        console.log("💙TuanHQ💖 ~> onFinish ~> res", res);
         if (res.data.code !== 0) {
-          NotificationError('Lỗi đăng nhập', res.data.message);
+          NotificationError("Lỗi đăng nhập", res.data.message);
           return;
         }
         LoginService.setDataLocalStorage(res.data.data);
-        navigate('/admin/phong-tro');
-        NotificationSuccess('Đăng nhập thành công', res.data.message);
+        navigate("/admin/phong-tro");
+        NotificationSuccess("Đăng nhập thành công", res.data.message);
       })
-      .catch(err => {
-        NotificationError('Đăng nhập không thành công', '');
+      .catch((err) => {
+        NotificationError("Đăng nhập không thành công", "");
       })
       .finally(() => {
         setLoading(false);
@@ -44,13 +41,13 @@ function LoginPage() {
       <HelmetComponent title="Login" />
 
       <div className="loginContainer">
-        <div className="loginTitle">QUẢN LÝ NHÀ TRỌ</div>
+        <div className="loginTitle">QUẢN LÝ NHÀ TRỌ TIẾN HẢI</div>
         <Form onFinish={onFinish} autoComplete="off" {...layout}>
           <Form.Item
             label="Tên đăng nhập"
             name="username"
             labelAlign="left"
-            rules={[{ required: true, message: 'Chưa nhập tên đăng nhập!' }]}
+            rules={[{ required: true, message: "Chưa nhập tên đăng nhập!" }]}
           >
             <Input />
           </Form.Item>
@@ -59,7 +56,7 @@ function LoginPage() {
             label="Mật khẩu"
             name="password"
             labelAlign="left"
-            rules={[{ required: true, message: 'Chưa nhập mật khẩu' }]}
+            rules={[{ required: true, message: "Chưa nhập mật khẩu" }]}
           >
             <Input.Password />
           </Form.Item>
