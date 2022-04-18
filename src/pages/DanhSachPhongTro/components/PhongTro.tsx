@@ -23,7 +23,7 @@ function PhongTro(props: Props) {
     <Wrapper className="background__white">
       <Link to="/phong-tro/123">
         <img
-          src="https://nhaodanang.com/wp-content/uploads/2020/08/chon-cau-thang-gac-lung-cho-phong-tro-dien-tich-nho-2.jpg"
+          src={`https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-6/277794946_687632525887569_1256246728552715872_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=5cd70e&_nc_ohc=ZutTl3OOdB4AX-gdVgP&tn=ayinSa3Xwd2ohtsV&_nc_ht=scontent.fhan14-1.fna&oh=00_AT8oXmHFifMezyBiXdbWGZS8T6ZX46m5dPL4DqdxcRrrOA&oe=62609B31`}
           alt="Phong tro"
           className="phongtro-img"
         />

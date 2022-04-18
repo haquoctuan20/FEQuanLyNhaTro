@@ -1,4 +1,9 @@
-import { DollarOutlined, HomeOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  DollarOutlined,
+  ExpandAltOutlined,
+  HomeOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Button, Col, Divider, Popconfirm, Row, Space } from "antd";
 import HelmetComponent from "components/HelmetComponent";
 import LayoutDashboard from "components/Layouts/LayoutDashboard";
@@ -9,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { PhongTroServices } from "service/PhongTroServices";
 import { ToaNhaServices } from "service/ToaNhaServices";
 import styled from "styled-components";
+import { formatPrice } from "utils/common";
 import ModalTaoPhong from "./components/ModalTaoPhong";
 import ModalThemKhach from "./components/ModalThemKhach";
 
@@ -212,8 +218,15 @@ function BangDieuKhien() {
 
                   <div>
                     <div className="containerRoom-price ">
-                      <DollarOutlined className="me-2" /> {p.gia} VNĐ
+                      <DollarOutlined className="me-2" />
+                      Giá: {formatPrice(p.gia)}
                     </div>
+
+                    <div className="containerRoom-dienTich ">
+                      <ExpandAltOutlined className="me-2" />
+                      Diện tích: {p.dienTich} m2
+                    </div>
+
                     <Space>
                       <Button type="primary">Sửa phòng</Button>
 
@@ -310,9 +323,13 @@ const Wrapper = styled.div`
     &-price {
       display: flex;
       align-items: center;
-      margin: 8px 0px;
 
       border-top: 1px solid #c3c3c3;
+    }
+    &-dienTich {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
     }
   }
 `;

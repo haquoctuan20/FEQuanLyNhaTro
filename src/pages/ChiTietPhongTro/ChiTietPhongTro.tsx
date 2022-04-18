@@ -8,15 +8,13 @@ import { ChiTietPhongTroService } from "service/ChiTietPhongTroService";
 import { randomString } from "service/FAKEDATA";
 import styled from "styled-components";
 import ModalLienHe from "./components/ModalLienHe";
-const ReactQuill = require("react-quill");
+// const ReactQuill = require("react-quill");
 
 const dataImage = [
-  "https://64.media.tumblr.com/179f9fc81282f8f78d324a0f28af6a1b/463d24ceb4393202-26/s1280x1920/e0828ea4418a0e82fe1142cd73c32c4aa6ac4ba1.jpg",
-  "https://64.media.tumblr.com/fec40a8d789d40fc8609ee2e8cfc5689/c173fe79047a7a21-7a/s1280x1920/b15923c1a9bb569df7ce2a1c649d20a6ad133326.jpg",
-  "https://64.media.tumblr.com/85bef78f194d48b3d2177d7f4bd91a40/ea2de2f36a1a24e0-16/s1280x1920/20689e1dcad97d3d567bb39a538250d560fbdbb0.jpg",
-  "https://64.media.tumblr.com/4de836f19f2b4a3fbadbb640eafe8049/905792f74fa02844-73/s1280x1920/4bd25bb3b804efc110aaba2f3380b8a668e4c7ae.jpg",
-  "https://64.media.tumblr.com/85bef78f194d48b3d2177d7f4bd91a40/ea2de2f36a1a24e0-16/s1280x1920/20689e1dcad97d3d567bb39a538250d560fbdbb0.jpg",
-  "https://64.media.tumblr.com/4de836f19f2b4a3fbadbb640eafe8049/905792f74fa02844-73/s1280x1920/4bd25bb3b804efc110aaba2f3380b8a668e4c7ae.jpg",
+  `https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-6/277794946_687632525887569_1256246728552715872_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=5cd70e&_nc_ohc=ZutTl3OOdB4AX-gdVgP&tn=ayinSa3Xwd2ohtsV&_nc_ht=scontent.fhan14-1.fna&oh=00_AT8oXmHFifMezyBiXdbWGZS8T6ZX46m5dPL4DqdxcRrrOA&oe=62609B31`,
+  `https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-6/277785839_687632602554228_8050237321463483585_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=5cd70e&_nc_ohc=zH3q7sjcOGIAX8ObZxg&_nc_ht=scontent.fhan14-2.fna&oh=00_AT8VfVpLcK7PuQGajAF85KRTBEdwwQLGmhpSAxVfBpGXPw&oe=6260467F`,
+  `https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-6/277673610_687632642554224_2934954179642950705_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=5cd70e&_nc_ohc=crtmd9KJmrYAX8ZyKFz&_nc_ht=scontent.fhan14-2.fna&oh=00_AT9zx0yAaYghfa7wfuPMDSUMvOGLJa5h3t_ZqogxyE381g&oe=6261A928`,
+  `https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-6/273964566_2108108419337260_8610920058290988077_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=5cd70e&_nc_ohc=OhoGqoqcQxIAX_TUMxe&_nc_ht=scontent.fhan14-2.fna&oh=00_AT8Kaf3bdwhTSLiNNSO7AjztMqU5OP1jMT7wjfhOWB4a-Q&oe=625FE8FE`,
 ];
 
 function ChiTietPhongTro() {
@@ -24,12 +22,12 @@ function ChiTietPhongTro() {
   const [openLienHe, setOpenLienHe] = useState(false);
   const [triggerLoadList, setTriggerLoadList] = useState(true);
 
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
 
-  const onChange = (value: any) => {
-    console.log("❗TuanHQ🐞 💻 onChange 💻 value", value);
-    setValue(value);
-  };
+  // const onChange = (value: any) => {
+  //   console.log("❗TuanHQ🐞 💻 onChange 💻 value", value);
+  //   setValue(value);
+  // };
 
   const openModalLienHe = () => {
     setOpenLienHe(true);
@@ -79,12 +77,13 @@ function ChiTietPhongTro() {
               <div className="ChiTietPhongTro-title">Phòng 102 - Tòa P2</div>
 
               <div className="ChiTietPhongTro-info">
-                <span>Mô tả:</span> Lorem ipsum, dolor sit amet consectetur adipisicing
-                elit. Magni esse nobis sapiente nostrum suscipit! Temporibus sint cumque
-                aspernatur error fugit, voluptate debitis voluptatem veritatis accusamus,
-                incidunt saepe iure modi ex soluta! Distinctio odio iure porro, numquam
-                ex, ratione quos magni neque reprehenderit inventore quis! Alias eius
-                nostrum esse quo at!
+                <span>Mô tả:</span> <br /> Có nhà vệ sinh khép kín, có chỗ nấu ăn <br />{" "}
+                Có chỗ phơi đồ rất tiện lợi <br /> Đầy đủ nóng lạnh, điều hoà <br /> có
+                tầng 1 để xe rất thoải mái <br /> an ninh cực kỳ tốt <br /> có máy giặt
+                chỗ phơi đồ. Phòng y hình ạ. Có sẵn gương đệm kệ nước và đồ dùng nhà tắm
+                cho bạn nào có nhu cầu thuê. LIÊN HỆ ĐỂ HẸN XEM PHÒNG TRỌ
+                <br />
+                Liên hệ: 0587 049 999
               </div>
 
               <div className="ChiTietPhongTro-info">
@@ -126,9 +125,9 @@ function ChiTietPhongTro() {
             </Col>
           </Row>
 
-          <ReactQuill value={value} onChange={onChange} />
+          {/* <ReactQuill value={value} onChange={onChange} />
 
-          <div dangerouslySetInnerHTML={{ __html: value }}></div>
+          <div dangerouslySetInnerHTML={{ __html: value }}></div> */}
         </Container>
 
         <ModalLienHe visible={openLienHe} onClose={closeModalLienHe} />

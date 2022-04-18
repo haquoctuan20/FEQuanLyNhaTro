@@ -3,7 +3,6 @@ import { Layout, Menu } from "antd";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { LoginService } from "../../service/LoginService";
 
 const { Sider } = Layout;
 
@@ -11,7 +10,7 @@ function LeftMenu() {
   const location = useLocation();
   const activeKey = location.pathname.split("/")[2];
 
-  const data = LoginService.getDataLocalStorage();
+  // const data = LoginService.getDataLocalStorage();
 
   const MENU = [
     {

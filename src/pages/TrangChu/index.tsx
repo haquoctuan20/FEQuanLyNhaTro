@@ -165,7 +165,7 @@ function TrangChu() {
             <Col md={12} lg={6}>
               <Image
                 width="100%"
-                src="https://img.vinway.vn/uploads/2021/06/29/z2555636678877a4370ff0fb702883452175aa4612c99f.jpg"
+                src={`https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-6/273964566_2108108419337260_8610920058290988077_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=5cd70e&_nc_ohc=OhoGqoqcQxIAX_TUMxe&_nc_ht=scontent.fhan14-2.fna&oh=00_AT8Kaf3bdwhTSLiNNSO7AjztMqU5OP1jMT7wjfhOWB4a-Q&oe=625FE8FE`}
                 className="image-demo"
                 preview={{
                   mask: (

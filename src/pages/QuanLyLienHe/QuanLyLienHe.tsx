@@ -9,7 +9,12 @@ import styled from "styled-components";
 const data: any[] = [
   {
     key: 0,
-    name: "Jack",
+    ten: "Hà Minh",
+    email: "haminh@gmail.com",
+    sdt: "0987654321",
+    noiDung: "Tôi muốn xem trọ vào ngày 20/4/2022, hãy liên hệ cho tôi sớm nhất",
+    soPhong: 101,
+    toa: "Tòa P1",
   },
 ];
 
@@ -25,13 +30,14 @@ function QuanLyLienHe() {
     {
       key: "hoTen",
       title: "Tên",
-      dataIndex: "hoTen",
+      dataIndex: "ten",
     },
     {
-      key: "thoiGianHen",
-      title: "Thời gian hẹn",
-      dataIndex: "thoiGianHen",
+      key: "sdt",
+      title: "Số điện thoại",
+      dataIndex: "sdt",
     },
+
     {
       key: "soPhong",
       title: "Số phòng",
@@ -43,9 +49,10 @@ function QuanLyLienHe() {
       dataIndex: "toa",
     },
     {
-      key: "trangThai",
-      title: "Trạng thái",
-      dataIndex: "trangThai",
+      key: "noiDung",
+      title: "Nội dung",
+      dataIndex: "noiDung",
+      ellipsis: true,
     },
     {
       key: "action",
