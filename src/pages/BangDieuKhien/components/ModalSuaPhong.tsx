@@ -5,10 +5,11 @@ import { PhongTroServices } from "service/PhongTroServices";
 import { ToaNhaServices } from "service/ToaNhaServices";
 import styled from "styled-components";
 
-interface ModalTaoPhongTypes {
+interface Props {
   visible: boolean;
   onClose: () => void;
   onRefresh: () => void;
+  data: any;
 }
 
 const layout = {
@@ -18,14 +19,13 @@ const layout = {
 
 const { Option } = Select;
 
-function ModalTaoPhong(props: ModalTaoPhongTypes) {
+function ModalSuaPhong(props: Props) {
+  const { visible, onClose, onRefresh, data } = props;
   const [form] = Form.useForm();
-  const { visible, onClose, onRefresh } = props;
 
   const [toaNha, setToaNha] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  const handleOk = () => {};
+  const [loading, setLoading] = useState(false);
 
   const handleCancel = () => {
     onClose();
@@ -33,22 +33,21 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
   };
 
   const onFinish = (values: any) => {
-    const params = { ...values };
-
     setLoading(true);
-    PhongTroServices.postRoom(params)
+    PhongTroServices.updateRoom(values, data._id)
       .then((res) => {
         if (res.data.code !== 0) {
-          NotificationError("Lỗi thêm mới", res.data.message);
+          NotificationError("Thất bại", res.data.message);
           return;
         }
 
-        NotificationSuccess("Tạo phòng trọ thành công", "");
-        handleCancel();
+        NotificationSuccess("Thành công", res.data.message);
+        onClose();
+        form.resetFields();
         onRefresh();
       })
       .catch((err) => {
-        NotificationError("Lỗi thêm mới", "");
+        console.log(err);
       })
       .finally(() => {
         setLoading(false);
@@ -78,11 +77,15 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
     getAllToaNha();
   }, [visible]);
 
+  useEffect(() => {
+    form.resetFields();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   return (
     <Modal
-      title="Thêm phòng trọ mới"
+      title="Sửa thông tin phòng trọ"
       visible={visible}
-      onOk={handleOk}
       onCancel={handleCancel}
       maskClosable={false}
       okText="Thêm"
@@ -96,6 +99,7 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
             name="soPhong"
             label="Số phòng:"
             rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+            initialValue={data.soPhong}
           >
             <InputNumber style={{ width: "100%" }} />
           </Form.Item>
@@ -105,6 +109,7 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
             name="toaNha"
             label="Toà:"
             rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+            initialValue={data?.toaNha?._id}
           >
             <Select>
               {toaNha.map((toa: any, index) => (
@@ -120,8 +125,9 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
             name="dienTich"
             label="Diện tích:"
             rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+            initialValue={data.dienTich}
           >
-            <InputNumber addonAfter="m2" style={{ width: "100%" }} />
+            <InputNumber style={{ width: "100%" }} addonAfter="m2" />
           </Form.Item>
 
           <Form.Item
@@ -129,6 +135,7 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
             name="gia"
             label="Giá phòng:"
             rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+            initialValue={data.gia}
           >
             <InputNumber
               style={{ width: "100%" }}
@@ -143,6 +150,7 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
             name="soLuongToiDa"
             label="Số lượng tối đa:"
             rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+            initialValue={data.soLuongToiDa}
           >
             <InputNumber style={{ width: "100%" }} />
           </Form.Item>
@@ -152,7 +160,7 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
             name="giaDien"
             label="Giá điện:"
             rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
-            initialValue={2800}
+            initialValue={data.giaDien}
           >
             <InputNumber
               style={{ width: "100%" }}
@@ -167,7 +175,7 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
             name="giaNuoc"
             label="Giá nước:"
             rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
-            initialValue={100000}
+            initialValue={data.giaNuoc}
           >
             <InputNumber
               style={{ width: "100%" }}
@@ -182,7 +190,7 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
             name="phiDichVu"
             label="Phí dịch vụ:"
             rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
-            initialValue={80000}
+            initialValue={data.phiDichVu}
           >
             <InputNumber
               style={{ width: "100%" }}
@@ -195,7 +203,7 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
           <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
             <Space>
               <Button type="primary" htmlType="submit" loading={loading}>
-                Thêm
+                Lưu
               </Button>
               <Button htmlType="button" onClick={handleCancel}>
                 Hủy
@@ -208,12 +216,5 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
   );
 }
 
-export default ModalTaoPhong;
-
-const Wrapper = styled.div`
-  .themPhong {
-    &-label {
-      font-weight: 500;
-    }
-  }
-`;
+export default ModalSuaPhong;
+const Wrapper = styled.div``;

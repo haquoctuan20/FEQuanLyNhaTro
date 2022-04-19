@@ -38,4 +38,12 @@ export const PhongTroServices = {
       url: "api/v1/khachhang/traPhong",
     });
   },
+
+  updateRoom(data: any, id: string) {
+    return apiClient.request({
+      method: "PUT",
+      data,
+      url: "api/v1/phong/" + id,
+    });
+  },
 };

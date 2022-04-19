@@ -1,146 +1,77 @@
 import { Button, Space, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
+import axios from "axios";
 import HelmetComponent from "components/HelmetComponent";
 import LayoutDashboard from "components/Layouts/LayoutDashboard";
+import { NotificationError } from "components/Notification";
 import TitlePage from "components/TitlePage";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { BaiVietService } from "service/baiVietService";
 import styled from "styled-components";
 
-const data: any[] = [
-  {
-    _id: "625bd177fa3d0f8d6660a69f",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    soPhong: 101,
-    dienTich: "20",
-    soLuongToiDa: "3",
-    gia: "2000000",
-    dangThue: false,
-    khachHang: null,
-    __v: 0,
-  },
-  {
-    _id: "625bd193fa3d0f8d6660a6a5",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    soPhong: 102,
-    dienTich: "20",
-    soLuongToiDa: "3",
-    gia: "1900000",
-    dangThue: true,
-    khachHang: {
-      _id: "625bda07fa3d0f8d6660a726",
-      tenKhachHang: "Hà Quốc Tuấn",
-    },
-    __v: 0,
-  },
-  {
-    _id: "625bd1a5fa3d0f8d6660a6ab",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    soPhong: 201,
-    dienTich: "22",
-    soLuongToiDa: "3",
-    gia: "2200000",
-    dangThue: false,
-    khachHang: null,
-    __v: 0,
-  },
-  {
-    _id: "625bd4f9fa3d0f8d6660a6ff",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    soPhong: 301,
-    dienTich: "16",
-    soLuongToiDa: "2",
-    gia: "1600000",
-    dangThue: false,
-    khachHang: null,
-    __v: 0,
-  },
-  {
-    _id: "625bd519fa3d0f8d6660a707",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    soPhong: 302,
-    dienTich: "20",
-    soLuongToiDa: "3",
-    gia: "2000000",
-    dangThue: false,
-    khachHang: null,
-    __v: 0,
-  },
-  {
-    _id: "625bd52afa3d0f8d6660a70d",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    soPhong: 401,
-    dienTich: "20",
-    soLuongToiDa: "3",
-    gia: "2000000",
-    dangThue: false,
-    khachHang: null,
-    __v: 0,
-  },
-  {
-    _id: "625bd546fa3d0f8d6660a713",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    soPhong: 501,
-    dienTich: "20",
-    soLuongToiDa: "3",
-    gia: "2000000",
-    dangThue: false,
-    khachHang: null,
-    __v: 0,
-  },
-  {
-    _id: "625bd559fa3d0f8d6660a719",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    soPhong: 502,
-    dienTich: "20",
-    soLuongToiDa: "3",
-    gia: "2000000",
-    dangThue: false,
-    khachHang: null,
-    __v: 0,
-  },
-];
-
 function QuanLyBaiViet() {
+  const [baiViet, setBaiViet] = useState([]);
+
+  const [loading, setloading] = useState(false);
+
+  const handleGetBaiViet = () => {
+    setloading(true);
+    BaiVietService.getBaiViet()
+      .then((res: any) => {
+        if (res.data.code !== 0) {
+          NotificationError("Lấy danh sách bài viết thất bại", "");
+          return;
+        }
+
+        setBaiViet(res.data.data);
+      })
+      .catch((err: any) => {
+        NotificationError("Lấy danh sách bài viết thất bại", "");
+        console.error(err);
+      })
+      .finally(() => {
+        setloading(false);
+      });
+  };
+
+  const handleHienBaiViet = (id: string) => {
+    BaiVietService.hienBaiViet(id)
+      .then((res: any) => {
+        if (res.data.code !== 0) {
+          NotificationError("Hiển thị bài viết thất bại", "");
+          return;
+        }
+
+        NotificationError("Hiển thị bài viết thành công", "");
+        handleGetBaiViet();
+      })
+      .catch((err: any) => {
+        NotificationError("Hiển thị bài viết thất bại", "");
+        console.error(err);
+      });
+  };
+
+  const handleAnBaiViet = (id: string) => {
+    BaiVietService.anBaiViet(id)
+      .then((res: any) => {
+        if (res.data.code !== 0) {
+          NotificationError("Ẩn bài viết thất bại", "");
+          return;
+        }
+
+        NotificationError("Ẩn bài viết thành công", "");
+        handleGetBaiViet();
+      })
+      .catch((err: any) => {
+        NotificationError("Ẩn bài viết thất bại", "");
+        console.error(err);
+      });
+  };
+
+  useEffect(() => {
+    handleGetBaiViet();
+  }, []);
+
   const columns: ColumnsType<any> = [
     {
       key: "stt",
@@ -150,36 +81,92 @@ function QuanLyBaiViet() {
       render: (text: any, record: any, index: number) => index + 1,
     },
     {
-      key: "soPhong",
-      title: "Số phòng",
-      dataIndex: "soPhong",
+      key: "phong",
+      title: "Phòng - Tòa",
+      dataIndex: "phong",
+      render: (text: any, record: any) => (
+        <>
+          Phòng {text.soPhong} - {text.toaNha.tenToaNha}
+        </>
+      ),
     },
     {
-      key: "toa",
-      title: "Tòa",
-      dataIndex: "toa",
-      render: (text: any, record: any) => record.toaNha.tenToaNha,
+      key: "noiDung",
+      title: "Nội dung",
+      dataIndex: "noiDung",
+      ellipsis: true,
+    },
+    {
+      key: "trangThai",
+      title: "Trạng thái",
+      dataIndex: "trangThai",
+      render: (text: any, record: any) => (
+        <>
+          {text ? (
+            <div className="trangThai_hien">Đăng hiển thị</div>
+          ) : (
+            <div className="trangThai_an">Đang ẩn</div>
+          )}
+        </>
+      ),
     },
 
     {
       key: "action",
       title: "Hành động",
       width: 300,
+      dataIndex: "trangThai",
       render: (text, record, index) => (
         <Space>
-          {index % 3 === 0 ? (
-            <Button type="primary" danger>
+          {text ? (
+            <Button
+              type="primary"
+              style={{ minWidth: "70px" }}
+              onClick={() => handleAnBaiViet(record._id)}
+              danger
+            >
               Ẩn
             </Button>
           ) : (
-            <Button type="primary">Hiện</Button>
+            <Button
+              type="primary"
+              style={{ minWidth: "70px" }}
+              onClick={() => handleHienBaiViet(record._id)}
+            >
+              Hiện
+            </Button>
           )}
 
-          <Button type="primary">Sửa</Button>
+          <Button style={{ minWidth: "70px" }}>Sửa</Button>
         </Space>
       ),
     },
   ];
+
+  // ++++++++++++++++++++++++++++++
+
+  const handleChangeFile = (e: any) => {
+    console.log("❗TuanHQ🐞 💻 handleChangeFile 💻 e", e.target.files[0]);
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "tuanhq_preset");
+
+    axios
+      .post("https://api.cloudinary.com/v1_1/tuanhq/image/upload", formData)
+      .then((res) => {
+        console.log("❗TuanHQ🐞 💻 handleChangeFile 💻 res", res);
+      });
+  };
+
+  const hiddenFileInput = useRef<any>();
+
+  const handleClick = (event) => {
+    if (hiddenFileInput.current) {
+      hiddenFileInput.current.click();
+    }
+  };
+
   return (
     <LayoutDashboard>
       <HelmetComponent title="Quản lý bài viết" />
@@ -187,9 +174,32 @@ function QuanLyBaiViet() {
 
       <Wrapper>
         <div className="lienhe-table background__white">
-          <Table size="small" columns={columns} dataSource={data} />
+          <Table
+            rowKey={"_id"}
+            loading={loading}
+            size="small"
+            columns={columns}
+            dataSource={baiViet}
+          />
         </div>
       </Wrapper>
+
+      {/* <label htmlFor="243523452345">Tải ảnh nhà trọ</label>
+      <input
+        name="243523452345"
+        type="file"
+        accept="image/*"
+        onChange={handleChangeFile}
+      /> */}
+
+      <Button onClick={handleClick}>Upload a file</Button>
+
+      <input
+        type="file"
+        ref={hiddenFileInput}
+        onChange={handleChangeFile}
+        style={{ display: "none" }}
+      />
     </LayoutDashboard>
   );
 }
@@ -201,5 +211,21 @@ const Wrapper = styled.div`
     &-table {
       padding: 10px;
     }
+  }
+
+  .trangThai_hien {
+    width: 100px;
+    color: #007200;
+    background-color: #00ff0014;
+    text-align: center;
+    border-radius: 4px;
+  }
+
+  .trangThai_an {
+    width: 100px;
+    color: #ff0000;
+    background-color: #ff000014;
+    text-align: center;
+    border-radius: 4px;
   }
 `;

@@ -15,6 +15,7 @@ import { PhongTroServices } from "service/PhongTroServices";
 import { ToaNhaServices } from "service/ToaNhaServices";
 import styled from "styled-components";
 import { formatPrice } from "utils/common";
+import ModalSuaPhong from "./components/ModalSuaPhong";
 import ModalTaoPhong from "./components/ModalTaoPhong";
 import ModalThemKhach from "./components/ModalThemKhach";
 
@@ -29,6 +30,9 @@ function BangDieuKhien() {
 
   const [openThemKhach, setOpenThemKhach] = useState(false);
   const [idPhong, setIdPhong] = useState("");
+
+  const [phongEdit, setPhongEdit] = useState({});
+  const [openSuaPhong, setOpenSuaPhong] = useState(false);
 
   // TẠO PHÒNG
   const handleOpenTaoPhong = () => {
@@ -50,6 +54,22 @@ function BangDieuKhien() {
     setOpenThemKhach(false);
   };
   // END THÊM KHÁCH
+
+  // Sua Phong
+  const handleOpenSuaPhong = (data: any) => {
+    if (!data) {
+      return;
+    }
+    setOpenSuaPhong(true);
+    setPhongEdit(data);
+  };
+
+  const handleCloseSuaPhong = () => {
+    setOpenSuaPhong(false);
+    setPhongEdit({});
+  };
+
+  // END Sua Phong
 
   const handleFilterToaNha = (id: string) => {
     settoaNhaSelected(id);
@@ -228,7 +248,9 @@ function BangDieuKhien() {
                     </div>
 
                     <Space>
-                      <Button type="primary">Sửa phòng</Button>
+                      <Button type="primary" onClick={() => handleOpenSuaPhong(p)}>
+                        Sửa phòng
+                      </Button>
 
                       {!p.dangThue && (
                         <Popconfirm
@@ -262,6 +284,13 @@ function BangDieuKhien() {
           onRefresh={handleGetAllPhongTro}
           idPhong={idPhong}
         />
+
+        <ModalSuaPhong
+          visible={openSuaPhong}
+          onClose={handleCloseSuaPhong}
+          onRefresh={handleGetAllPhongTro}
+          data={phongEdit}
+        ></ModalSuaPhong>
       </Wrapper>
     </LayoutDashboard>
   );
