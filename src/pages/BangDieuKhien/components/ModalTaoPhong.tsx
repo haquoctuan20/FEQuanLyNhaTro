@@ -130,7 +130,12 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
             label="Giá phòng:"
             rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
           >
-            <InputNumber style={{ width: "100%" }} />
+            <InputNumber
+              style={{ width: "100%" }}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              parser={(value: any) => value.replace(/\$\s?|(,*)/g, "")}
+              addonAfter="VNĐ"
+            />
           </Form.Item>
 
           <Form.Item
@@ -140,6 +145,51 @@ function ModalTaoPhong(props: ModalTaoPhongTypes) {
             rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
           >
             <InputNumber style={{ width: "100%" }} />
+          </Form.Item>
+
+          <Form.Item
+            labelAlign="left"
+            name="giaDien"
+            label="Giá điện:"
+            rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+            initialValue={2800}
+          >
+            <InputNumber
+              style={{ width: "100%" }}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              parser={(value: any) => value.replace(/\$\s?|(,*)/g, "")}
+              addonAfter="VNĐ"
+            />
+          </Form.Item>
+
+          <Form.Item
+            labelAlign="left"
+            name="giaNuoc"
+            label="Giá nước:"
+            rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+            initialValue={100000}
+          >
+            <InputNumber
+              style={{ width: "100%" }}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              parser={(value: any) => value.replace(/\$\s?|(,*)/g, "")}
+              addonAfter="VNĐ"
+            />
+          </Form.Item>
+
+          <Form.Item
+            labelAlign="left"
+            name="tienDichVu"
+            label="Phí dịch vụ:"
+            rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+            initialValue={80000}
+          >
+            <InputNumber
+              style={{ width: "100%" }}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              parser={(value: any) => value.replace(/\$\s?|(,*)/g, "")}
+              addonAfter="VNĐ"
+            />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 6, span: 18 }}>

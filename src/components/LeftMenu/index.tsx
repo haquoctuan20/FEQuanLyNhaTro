@@ -1,4 +1,10 @@
-import { PieChartOutlined } from "@ant-design/icons";
+import {
+  AuditOutlined,
+  BoxPlotOutlined,
+  CodeOutlined,
+  FileDoneOutlined,
+  PieChartOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -15,31 +21,31 @@ function LeftMenu() {
   const MENU = [
     {
       key: "phong-tro",
-      icon: <PieChartOutlined />,
+      icon: <PieChartOutlined style={{ fontSize: "22px" }} />,
       path: "/admin/phong-tro",
       title: "Quản lý phòng trọ",
     },
     {
       key: "chi-so-dien",
-      icon: <PieChartOutlined />,
+      icon: <BoxPlotOutlined style={{ fontSize: "22px" }} />,
       path: "/admin/chi-so-dien",
       title: "Chỉ số diện",
     },
     {
       key: "tinh-tien",
-      icon: <PieChartOutlined />,
+      icon: <AuditOutlined style={{ fontSize: "22px" }} />,
       path: "/admin/tinh-tien",
       title: "Tính tiền phòng",
     },
     {
       key: "quan-ly-lien-he",
-      icon: <PieChartOutlined />,
+      icon: <CodeOutlined style={{ fontSize: "22px" }} />,
       path: "/admin/quan-ly-lien-he",
       title: "Quản lý liên hệ",
     },
     {
       key: "quan-ly-bai-viet",
-      icon: <PieChartOutlined />,
+      icon: <FileDoneOutlined style={{ fontSize: "22px" }} />,
       path: "/admin/quan-ly-bai-viet",
       title: "Quản lý bài viết",
     },
@@ -60,9 +66,9 @@ function LeftMenu() {
         onCollapse={onCollapse}
       >
         <Menu theme="dark" defaultSelectedKeys={[activeKey]} mode="inline">
-          <Menu.Item key="null" className="sider-account">
-            <div>{/* <div className="sider-account-name">{data.username}</div> */}</div>
-          </Menu.Item>
+          {/* <Menu.Item key="null" className="sider-account"> */}
+          {/* <div><div className="sider-account-name">{data.username}</div></div> */}
+          {/* </Menu.Item> */}
           {MENU.map((link: any, index: any) => (
             <Menu.Item key={link.key} icon={link.icon}>
               <Link key={index} to={link.path}>
