@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ChiTietPhongTroService } from "service/ChiTietPhongTroService";
 import styled from "styled-components";
+import { formatPrice } from "utils/common";
 interface Props {
   data: any;
   callback: () => void;
@@ -19,25 +20,27 @@ function PhongTroXemSau(props: Props) {
 
   return (
     <Wrapper className="background__white">
-      <Link to="/phong-tro/123">
+      <Link to={"/phong-tro/" + data?.id}>
         <img
-          src="https://nhaodanang.com/wp-content/uploads/2020/08/chon-cau-thang-gac-lung-cho-phong-tro-dien-tich-nho-2.jpg"
+          src={data?.urlAnh ? data?.urlAnh[0] : ""}
           alt="Phong tro"
           className="phongtroxemsau-img"
         />
       </Link>
-      <div className="phongtroxemsau-title">Phòng 102 - Tòa P2</div>
+      <div className="phongtroxemsau-title">
+        Phòng {data?.soPhong} - {data.toaNha}
+      </div>
       <div>
         <div className="phongtroxemsau-dientich">
-          <HomeFilled className="me-1" /> 20 m2
+          <HomeFilled className="me-1" /> {data?.dienTich} m2
         </div>
         <div className="phongtroxemsau-price">
           <DollarCircleFilled className="me-1" />
-          2.000.000 VND
+          {formatPrice(data?.gia)}
         </div>
       </div>
       <div className="phongtroxemsau-containerBtn">
-        <Link to="/phong-tro/123">
+        <Link to={"/phong-tro/" + data?.id}>
           <Button size="small" type="primary">
             Chi tiết
           </Button>

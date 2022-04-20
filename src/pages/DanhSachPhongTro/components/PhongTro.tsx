@@ -3,46 +3,53 @@ import { Button, Space } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import { ChiTietPhongTroService } from "service/ChiTietPhongTroService";
-import { randomString } from "service/FAKEDATA";
 import styled from "styled-components";
+import { formatPrice } from "utils/common";
 
 interface Props {
   callback: () => void;
+  data: any;
 }
 
 function PhongTro(props: Props) {
-  const { callback } = props;
+  const { callback, data } = props;
 
   const handleAddToXemSau = () => {
-    const param = { id: randomString() };
+    const param = {
+      id: data._id,
+      soPhong: data?.phong?.soPhong,
+      toaNha: data?.phong?.toaNha?.tenToaNha,
+      gia: data?.phong?.gia,
+      dienTich: data?.phong?.dienTich,
+      urlAnh: data?.urlAnh,
+    };
+
     ChiTietPhongTroService.addToXemSau(param);
     callback();
   };
 
   return (
     <Wrapper className="background__white">
-      <Link to="/phong-tro/123">
-        <img
-          src={`https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-6/277794946_687632525887569_1256246728552715872_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=5cd70e&_nc_ohc=ZutTl3OOdB4AX-gdVgP&tn=ayinSa3Xwd2ohtsV&_nc_ht=scontent.fhan14-1.fna&oh=00_AT8oXmHFifMezyBiXdbWGZS8T6ZX46m5dPL4DqdxcRrrOA&oe=62609B31`}
-          alt="Phong tro"
-          className="phongtro-img"
-        />
+      <Link to={"/phong-tro/" + data._id}>
+        <img src={data.urlAnh[0]} alt="Phong tro" className="phongtro-img" />
       </Link>
 
       <div className="phongtro-content">
         <div>
-          <div className="phongtro-title">Phòng 102 - Tòa P2</div>
+          <div className="phongtro-title">
+            Phòng {data.phong.soPhong} - {data.phong.toaNha.tenToaNha}
+          </div>
           <div className="phongtro-dientich">
-            <HomeFilled className="me-1" /> 20 m2
+            <HomeFilled className="me-1" /> {data.phong.dienTich} m2
           </div>
           <div className="phongtro-price">
             <DollarCircleFilled className="me-1" />
-            2.000.000 VND
+            {formatPrice(data.phong.gia)}
           </div>
         </div>
 
         <Space>
-          <Link to="/phong-tro/123">
+          <Link to={"/phong-tro/" + data._id}>
             <Button size="small">Chi tiết</Button>
           </Link>
           <Button size="small" onClick={handleAddToXemSau}>

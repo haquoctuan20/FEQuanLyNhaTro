@@ -1,18 +1,35 @@
 import { Button, Space, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
-import axios from "axios";
 import HelmetComponent from "components/HelmetComponent";
 import LayoutDashboard from "components/Layouts/LayoutDashboard";
 import { NotificationError } from "components/Notification";
 import TitlePage from "components/TitlePage";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BaiVietService } from "service/baiVietService";
 import styled from "styled-components";
+import ModalSuaBaiViet from "./components/ModalSuaBaiViet";
 
 function QuanLyBaiViet() {
   const [baiViet, setBaiViet] = useState([]);
 
   const [loading, setloading] = useState(false);
+
+  const [openSuaBaiViet, setOpenSuaBaiViet] = useState(false);
+  const [baiVietEdit, setBaiVietEdit] = useState({});
+
+  const handleOpenSuaBaiViet = (data: any) => {
+    if (!data) {
+      return;
+    }
+
+    setOpenSuaBaiViet(true);
+    setBaiVietEdit(data);
+  };
+
+  const handleCloseSuaBaiViet = () => {
+    setOpenSuaBaiViet(false);
+    setBaiVietEdit({});
+  };
 
   const handleGetBaiViet = () => {
     setloading(true);
@@ -137,35 +154,18 @@ function QuanLyBaiViet() {
             </Button>
           )}
 
-          <Button style={{ minWidth: "70px" }}>Sửa</Button>
+          <Button
+            style={{ minWidth: "70px" }}
+            onClick={() => handleOpenSuaBaiViet(record)}
+          >
+            Sửa
+          </Button>
         </Space>
       ),
     },
   ];
 
   // ++++++++++++++++++++++++++++++
-
-  const handleChangeFile = (e: any) => {
-    console.log("❗TuanHQ🐞 💻 handleChangeFile 💻 e", e.target.files[0]);
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "tuanhq_preset");
-
-    axios
-      .post("https://api.cloudinary.com/v1_1/tuanhq/image/upload", formData)
-      .then((res) => {
-        console.log("❗TuanHQ🐞 💻 handleChangeFile 💻 res", res);
-      });
-  };
-
-  const hiddenFileInput = useRef<any>();
-
-  const handleClick = (event) => {
-    if (hiddenFileInput.current) {
-      hiddenFileInput.current.click();
-    }
-  };
 
   return (
     <LayoutDashboard>
@@ -192,14 +192,12 @@ function QuanLyBaiViet() {
         onChange={handleChangeFile}
       /> */}
 
-      <Button onClick={handleClick}>Upload a file</Button>
-
-      <input
-        type="file"
-        ref={hiddenFileInput}
-        onChange={handleChangeFile}
-        style={{ display: "none" }}
-      />
+      <ModalSuaBaiViet
+        data={baiVietEdit}
+        onClose={handleCloseSuaBaiViet}
+        visible={openSuaBaiViet}
+        onRefresh={handleGetBaiViet}
+      ></ModalSuaBaiViet>
     </LayoutDashboard>
   );
 }

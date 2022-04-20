@@ -1,5 +1,8 @@
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import React from "react";
 import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 interface Props {
@@ -8,9 +11,19 @@ interface Props {
 
 function TitlePagePublic(props: Props) {
   const { title } = props;
+  const navigate = useNavigate();
   return (
     <Wrapper>
-      <Container>{title.join(" / ").toString()}</Container>
+      <Container>
+        <Button
+          type="link"
+          icon={<ArrowLeftOutlined style={{ fontSize: "20px" }} />}
+          onClick={() => {
+            navigate(-1);
+          }}
+        ></Button>
+        {title.join(" / ").toString()}
+      </Container>
     </Wrapper>
   );
 }

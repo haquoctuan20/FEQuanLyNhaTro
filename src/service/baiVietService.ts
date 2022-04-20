@@ -21,4 +21,12 @@ export const BaiVietService = {
       url: `api/v1/baiViet/an/${id}`,
     });
   },
+
+  updateBaiViet(data: any, id: string) {
+    return apiClient.request({
+      method: "put",
+      url: `api/v1/baiViet/` + id,
+      data,
+    });
+  },
 };

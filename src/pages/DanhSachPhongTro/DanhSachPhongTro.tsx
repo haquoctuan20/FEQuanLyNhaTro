@@ -1,9 +1,12 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Divider, Drawer, Grid, Pagination, Row } from "antd";
 import LayoutPublic from "components/Layouts/LayoutPublic";
+import Loading from "components/Loading";
+import { NotificationError } from "components/Notification";
 import TitlePagePublic from "components/TitlePagePublic";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import { PhongTroClientService } from "service/PhongTroClientService";
 import styled from "styled-components";
 import FilterPhongTro from "./components/FilterPhongTro";
 import PhongTro from "./components/PhongTro";
@@ -16,6 +19,9 @@ function DanhSachPhongTro() {
   const [visibleFilter, setVisibleFilter] = useState(false);
   const [triggerLoadList, setTriggerLoadList] = useState(true);
 
+  const [listPhongTro, setListPhongTro] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const openFilterPhongTro = () => {
     setVisibleFilter(true);
   };
@@ -27,6 +33,29 @@ function DanhSachPhongTro() {
   const callbackPhongTro = () => {
     setTriggerLoadList(!triggerLoadList);
   };
+
+  const handleGetPhongTro = () => {
+    setLoading(true);
+    PhongTroClientService.getPhongTro()
+      .then((res) => {
+        if (res.data.code !== 0) {
+          return;
+        }
+
+        setListPhongTro(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+        NotificationError("Lỗi", "");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    handleGetPhongTro();
+  }, []);
 
   return (
     <LayoutPublic triggerLoadList={triggerLoadList}>
@@ -68,38 +97,19 @@ function DanhSachPhongTro() {
               </Drawer>
 
               {/* PHONG TRO */}
-              <Row gutter={[8, 0]}>
-                <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro callback={callbackPhongTro} />
-                </Col>
-                <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro callback={callbackPhongTro} />
-                </Col>
-                <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro callback={callbackPhongTro} />
-                </Col>
-                <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro callback={callbackPhongTro} />
-                </Col>
-                <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro callback={callbackPhongTro} />
-                </Col>
-                <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro callback={callbackPhongTro} />
-                </Col>
-                <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro callback={callbackPhongTro} />
-                </Col>
-                <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro callback={callbackPhongTro} />
-                </Col>
-                <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro callback={callbackPhongTro} />
-                </Col>
-                <Col md={12} lg={24} xl={12} xs={24}>
-                  <PhongTro callback={callbackPhongTro} />
-                </Col>
-              </Row>
+              {loading ? (
+                <Loading />
+              ) : listPhongTro.length > 0 ? (
+                <Row gutter={[8, 0]}>
+                  {listPhongTro.map((item, index) => (
+                    <Col md={12} lg={24} xl={12} xs={24} key={index}>
+                      <PhongTro callback={callbackPhongTro} data={item} />
+                    </Col>
+                  ))}
+                </Row>
+              ) : (
+                <>Không tìm thấy phòng trọ nào</>
+              )}
 
               <div className="pagination">
                 <Pagination defaultCurrent={1} total={50} />
