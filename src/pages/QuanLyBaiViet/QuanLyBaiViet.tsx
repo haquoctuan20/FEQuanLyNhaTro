@@ -2,7 +2,7 @@ import { Button, Space, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import HelmetComponent from "components/HelmetComponent";
 import LayoutDashboard from "components/Layouts/LayoutDashboard";
-import { NotificationError } from "components/Notification";
+import { NotificationError, NotificationSuccess } from "components/Notification";
 import TitlePage from "components/TitlePage";
 import React, { useEffect, useState } from "react";
 import { BaiVietService } from "service/baiVietService";
@@ -59,7 +59,7 @@ function QuanLyBaiViet() {
           return;
         }
 
-        NotificationError("Hiển thị bài viết thành công", "");
+        NotificationSuccess("Hiển thị bài viết thành công", "");
         handleGetBaiViet();
       })
       .catch((err: any) => {
@@ -76,7 +76,7 @@ function QuanLyBaiViet() {
           return;
         }
 
-        NotificationError("Ẩn bài viết thành công", "");
+        NotificationSuccess("Ẩn bài viết thành công", "");
         handleGetBaiViet();
       })
       .catch((err: any) => {

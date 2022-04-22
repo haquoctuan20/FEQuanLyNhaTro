@@ -180,17 +180,21 @@ function ChiTietPhongTro() {
             <Row
               gutter={[16, 8]}
               className="ChiTietPhongTro-noidungmota background__white"
-              style={{ marginTop: "20px", marginBottom: "20px" }}
+              style={{ marginTop: "20px" }}
             >
               <div className="ChiTietPhongTro-info ">
-                <span>Mô tả:</span>
+                <h3>Mô tả:</h3>
                 <div dangerouslySetInnerHTML={{ __html: data?.noiDung }}></div>
               </div>
             </Row>
           </Container>
         )}
 
-        <ModalLienHe visible={openLienHe} onClose={closeModalLienHe} />
+        <ModalLienHe
+          idPhong={data?.phong?._id}
+          visible={openLienHe}
+          onClose={closeModalLienHe}
+        />
       </Wrapper>
     </LayoutPublic>
   );
@@ -201,6 +205,7 @@ export default ChiTietPhongTro;
 const Wrapper = styled.div`
   min-height: calc(100vh - 66px);
   background: #f5f5f5;
+  padding-bottom: 20px;
 
   .ChiTietPhongTro {
     &-img {

@@ -1,4 +1,5 @@
 import { NotificationError, NotificationSuccess } from "components/Notification";
+import apiClient from "./apiClient";
 
 export const ChiTietPhongTroService = {
   addToXemSau(data: any) {
@@ -38,5 +39,13 @@ export const ChiTietPhongTroService = {
       localStorage.setItem("danhsachxemsau", JSON.stringify(newList));
       NotificationSuccess("Xóa phòng thành công", "Đã xóa phòng khỏi danh sách xem sau");
     }
+  },
+
+  guiLienHe(data: any) {
+    return apiClient.request({
+      method: "POST",
+      url: "api/v1/lienHe",
+      data,
+    });
   },
 };

@@ -5,12 +5,13 @@ import {
   FileDoneOutlined,
   PieChartOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
-import React, { useState } from "react";
+import { Grid, Layout, Menu } from "antd";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const { Sider } = Layout;
+const { useBreakpoint } = Grid;
 
 function LeftMenu() {
   const location = useLocation();
@@ -56,6 +57,16 @@ function LeftMenu() {
   const onCollapse = (params: any) => {
     setCollapsed(params);
   };
+
+  const screens = useBreakpoint();
+
+  useEffect(() => {
+    if (!screens.lg) {
+      setCollapsed(true);
+    } else {
+      setCollapsed(false);
+    }
+  }, [screens]);
 
   return (
     <Wrapper>
