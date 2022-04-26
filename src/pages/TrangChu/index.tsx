@@ -257,7 +257,9 @@ const Wrapper = styled.div`
   .containerTitle {
     text-align: center;
     padding: 55px 0px 60px;
-    background-color: #12c7ff14;
+    background-color: #0093e9;
+    background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+    color: #fff;
 
     &-title {
       font-size: 22px;

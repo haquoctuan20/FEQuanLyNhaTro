@@ -17,7 +17,7 @@ function TitlePagePublic(props: Props) {
       <Container>
         <Button
           type="link"
-          icon={<ArrowLeftOutlined style={{ fontSize: "20px" }} />}
+          icon={<ArrowLeftOutlined style={{ fontSize: "20px", color: "#fff" }} />}
           onClick={() => {
             navigate(-1);
           }}
@@ -31,7 +31,10 @@ function TitlePagePublic(props: Props) {
 export default TitlePagePublic;
 
 const Wrapper = styled.div`
-  background-color: #1890ff45;
+  background-color: #0093e9;
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+  color: #fff;
+
   min-height: 80px;
   font-size: 20px;
   font-weight: 500;

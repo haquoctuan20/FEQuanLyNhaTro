@@ -1,9 +1,10 @@
 import apiClient from "./apiClient";
 
 export const PhongTroClientService = {
-  getPhongTro() {
+  getPhongTro(param: any) {
     return apiClient.request({
       method: "get",
+      params: param,
       url: "api/v1/client/phongtro",
     });
   },

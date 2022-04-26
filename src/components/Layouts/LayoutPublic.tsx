@@ -28,7 +28,7 @@ function LayoutPublic(props: Props) {
 
   return (
     <Wrapper>
-      <Navbar collapseOnSelect expand="md" sticky="top" className="containerNavbar">
+      <Navbar collapseOnSelect expand="lg" sticky="top" className="containerNavbar">
         <Container>
           <Link to="/">
             <img src={LOGO} alt="Nhà trọ Tiến Hải" className="logoPage" />
@@ -136,7 +136,7 @@ const Wrapper = styled.div`
     }
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 992px) {
     .containerLink {
       width: 100%;
       display: flex;

@@ -70,7 +70,7 @@ const Wrapper = styled.div`
   display: flex;
 
   &:hover {
-    background: #e5f2ff;
+    background: #00aeff26;
   }
 
   .phongtro {

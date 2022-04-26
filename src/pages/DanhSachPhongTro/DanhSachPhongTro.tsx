@@ -22,6 +22,10 @@ function DanhSachPhongTro() {
   const [listPhongTro, setListPhongTro] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [page, setPage] = useState(1);
+  const [size] = useState(10);
+  const [total, setTotal] = useState(0);
+
   const openFilterPhongTro = () => {
     setVisibleFilter(true);
   };
@@ -34,15 +38,27 @@ function DanhSachPhongTro() {
     setTriggerLoadList(!triggerLoadList);
   };
 
-  const handleGetPhongTro = () => {
+  const handleGetPhongTro = (pageValue, timKiem: null | Object = null) => {
+    let params = {
+      page: pageValue,
+      size,
+    };
+
+    if (timKiem !== null) {
+      params = {
+        ...params,
+        ...timKiem,
+      };
+    }
     setLoading(true);
-    PhongTroClientService.getPhongTro()
+    PhongTroClientService.getPhongTro(params)
       .then((res) => {
         if (res.data.code !== 0) {
           return;
         }
 
         setListPhongTro(res.data.data);
+        setTotal(res.data.total);
       })
       .catch((err) => {
         console.error(err);
@@ -53,8 +69,24 @@ function DanhSachPhongTro() {
       });
   };
 
+  const handleChangePage = (page) => {
+    setPage(page);
+    handleGetPhongTro(page);
+  };
+
+  const handleTimKiem = (value: any) => {
+    setPage(1);
+    handleGetPhongTro(1, value);
+  };
+
+  const handleThietLapLai = () => {
+    setPage(1);
+    handleGetPhongTro(1);
+  };
+
   useEffect(() => {
-    handleGetPhongTro();
+    handleGetPhongTro(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -65,13 +97,13 @@ function DanhSachPhongTro() {
         <Container className="mt-3">
           <Row gutter={[18, 8]}>
             <Col lg={6} xs={0}>
-              <FilterPhongTro />
+              <FilterPhongTro reset={handleThietLapLai} timKiem={handleTimKiem} />
             </Col>
 
             <Col lg={18} xs={24}>
               <Row>
                 <Col xs={20} lg={24}>
-                  <Divider orientation="left">100 Phòng</Divider>
+                  <Divider orientation="left"> Có {total} Phòng</Divider>
                 </Col>
                 <Col xs={2} offset={2}>
                   {!screens.lg && (
@@ -93,7 +125,7 @@ function DanhSachPhongTro() {
                 width={270}
                 mask={false}
               >
-                <FilterPhongTro />
+                <FilterPhongTro reset={handleThietLapLai} timKiem={handleTimKiem} />
               </Drawer>
 
               {/* PHONG TRO */}
@@ -112,7 +144,7 @@ function DanhSachPhongTro() {
               )}
 
               <div className="pagination">
-                <Pagination defaultCurrent={1} total={50} />
+                <Pagination current={page} total={total} onChange={handleChangePage} />
               </div>
             </Col>
           </Row>
