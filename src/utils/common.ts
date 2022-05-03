@@ -6,3 +6,7 @@ export const formatPrice = (price: number) => {
   });
   return formatter.format(price);
 };
+
+export const generateId = () => {
+  return Math.random().toString(36).substr(2, 9);
+};

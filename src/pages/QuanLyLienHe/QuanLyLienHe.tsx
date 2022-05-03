@@ -109,7 +109,7 @@ function QuanLyLienHe() {
       dataIndex: "phong",
       render: (text: any) => (
         <>
-          Phòng {text.soPhong} - {text.toaNha.tenToaNha}
+          Phòng {text?.soPhong} - {text?.toaNha?.tenToaNha}
         </>
       ),
     },
@@ -162,7 +162,7 @@ function QuanLyLienHe() {
       <Wrapper>
         <div className="lienhe-table background__white">
           <Table
-            rowKey="_id"
+            rowKey={"_id"}
             size="small"
             columns={columns}
             dataSource={data}

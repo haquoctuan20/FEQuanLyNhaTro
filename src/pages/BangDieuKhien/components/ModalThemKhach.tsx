@@ -1,8 +1,22 @@
-import { Button, Form, Input, Modal, Space } from "antd";
+import {
+  Button,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Radio,
+  Row,
+  Space,
+} from "antd";
 import { NotificationError, NotificationSuccess } from "components/Notification";
+import { LOCALE } from "constants/locale";
 import React, { useState } from "react";
 import { PhongTroServices } from "service/PhongTroServices";
 import styled from "styled-components";
+import moment from "moment";
+import ThemThanhVien from "./ThemThanhVien";
 
 interface ModalTaoPhongTypes {
   visible: boolean;
@@ -22,6 +36,17 @@ function ModalThemKhach(props: ModalTaoPhongTypes) {
 
   const [loading, setLoading] = useState(false);
 
+  const [thanhVien, setThanhVien] = useState<any>([]);
+
+  const themThanhVien = (params) => {
+    setThanhVien([...thanhVien, params]);
+  };
+
+  const xoaThanhVien = (id: string) => {
+    const rs = thanhVien.filter((item) => item.id !== id);
+    setThanhVien(rs);
+  };
+
   const handleOk = () => {};
 
   const handleCancel = () => {
@@ -30,7 +55,12 @@ function ModalThemKhach(props: ModalTaoPhongTypes) {
   };
 
   const onFinish = (values: any) => {
-    const params = { ...values, idPhong };
+    const params = {
+      ...values,
+      idPhong,
+      ngayCap: moment(values.ngayCap).valueOf(),
+      thanhVien,
+    };
 
     setLoading(true);
     PhongTroServices.addCustomer(params)
@@ -62,29 +92,121 @@ function ModalThemKhach(props: ModalTaoPhongTypes) {
       okText="Thêm"
       cancelText="Hủy"
       footer={false}
+      width={1200}
+      style={{ top: 20 }}
     >
       <Wrapper>
-        <Form {...layout} onFinish={onFinish} form={form}>
-          <Form.Item
-            labelAlign="left"
-            name="tenKhachHang"
-            label="Tên khách hàng:"
-            rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
-          >
-            <Input />
-          </Form.Item>
+        <Row gutter={[8, 8]}>
+          <Col lg={12}>
+            <Form name="khachHang" {...layout} onFinish={onFinish} form={form}>
+              <Form.Item
+                labelAlign="left"
+                name="tenKhachHang"
+                label="Tên khách hàng:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+              >
+                <Input />
+              </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
-            <Space>
-              <Button type="primary" htmlType="submit" loading={loading}>
-                Thêm
-              </Button>
-              <Button htmlType="button" onClick={handleCancel}>
-                Hủy
-              </Button>
-            </Space>
-          </Form.Item>
-        </Form>
+              <Form.Item
+                labelAlign="left"
+                name="tuoi"
+                label="Tuổi:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+              >
+                <InputNumber style={{ width: "100%" }} />
+              </Form.Item>
+
+              <Form.Item
+                labelAlign="left"
+                name="gioiTinh"
+                label="Giới tính:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+              >
+                <Radio.Group>
+                  <Radio value="0">Nam</Radio>
+                  <Radio value="1">Nữ</Radio>
+                </Radio.Group>
+              </Form.Item>
+
+              <Form.Item
+                labelAlign="left"
+                name="diaChiThuongTru"
+                label="Địa chỉ thường trú:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                labelAlign="left"
+                name="soDienThoai"
+                label="Số điện thoại:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                labelAlign="left"
+                name="cccd"
+                label="CCCD:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                labelAlign="left"
+                name="ngayCap"
+                label="Ngày cấp:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+              >
+                <DatePicker
+                  locale={{ ...LOCALE }}
+                  style={{ width: "100%" }}
+                  format="DD/MM/YYYY"
+                />
+              </Form.Item>
+
+              <Form.Item
+                labelAlign="left"
+                name="noiCap"
+                label="Nơi cấp:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                labelAlign="left"
+                name="ngheNghiep"
+                label="Nghề nghiệp:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
+                <Space>
+                  <Button type="primary" htmlType="submit" loading={loading}>
+                    Thêm
+                  </Button>
+                  <Button htmlType="button" onClick={handleCancel}>
+                    Hủy
+                  </Button>
+                </Space>
+              </Form.Item>
+            </Form>
+          </Col>
+          <Col lg={12}>
+            <ThemThanhVien
+              data={thanhVien}
+              callback={themThanhVien}
+              delete={xoaThanhVien}
+            />
+          </Col>
+        </Row>
       </Wrapper>
     </Modal>
   );

@@ -6,6 +6,10 @@ import TitlePage from "components/TitlePage";
 import React from "react";
 import styled from "styled-components";
 import { formatPrice } from "utils/common";
+
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
 const data: any[] = [
   {
     _id: "625bd193fa3d0f8d6660a6a5",
@@ -108,12 +112,27 @@ function TinhTien() {
       ),
     },
   ];
+
+  const doc: any = new jsPDF();
+  const handlePDF = () => {
+    doc.autoTable({
+      head: [["Name", "Email", "Country"]],
+      body: [
+        ["David", "david@example.com", "Sweden"],
+        ["Castille", "castille@example.com", "Spain"],
+        // ...
+      ],
+    });
+
+    doc.save("table.pdf");
+  };
   return (
     <LayoutDashboard>
       <HelmetComponent title="Tính tiền phòng" />
       <TitlePage title="Tính tiền phòng" />
 
       <Wrapper>
+        <Button onClick={handlePDF}>Tinh Tien</Button>
         <div className="lienhe-table background__white">
           <Table size="small" columns={columns} dataSource={data} />
         </div>
