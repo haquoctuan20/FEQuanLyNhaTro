@@ -1,122 +1,26 @@
 import { Button, DatePicker, Space, Table } from "antd";
+import locale from "antd/lib/date-picker/locale/vi_VN";
 import { ColumnsType } from "antd/lib/table";
+import { font } from "assets/fonts/Roboto-Regular-normal.js";
 import HelmetComponent from "components/HelmetComponent";
 import LayoutDashboard from "components/Layouts/LayoutDashboard";
 import TitlePage from "components/TitlePage";
-import React from "react";
-import styled from "styled-components";
-import { formatPrice } from "utils/common";
-
-import locale from "antd/lib/date-picker/locale/vi_VN";
-
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { TienPhongService } from "service/TienPhongService";
+import styled from "styled-components";
+import ModalTinhTien from "./ModalTinhTien";
 
-import { font } from "assets/fonts/Roboto-Regular-normal.js";
-
-const data: any[] = [
-  {
-    _id: "625bd193fa3d0f8d6660a6a5",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    toa: "Tòa P1",
-    soPhong: 102,
-    dienTich: "20",
-    soLuongToiDa: "3",
-    gia: "1900000",
-    dangThue: 2430000,
-    khachHang: {
-      _id: "625bda07fa3d0f8d6660a726",
-      tenKhachHang: "Hà Quốc Tuấn",
-    },
-    __v: 0,
-  },
-  {
-    _id: "625bd193fa3d0f8d6660a6a5",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    toa: "Tòa P1",
-    soPhong: 103,
-    dienTich: "20",
-    soLuongToiDa: "3",
-    gia: "1900000",
-    dangThue: 2530000,
-    khachHang: {
-      _id: "625bda07fa3d0f8d6660a726",
-      tenKhachHang: "Hà Quốc Tuấn",
-    },
-    __v: 0,
-  },
-  {
-    _id: "625bd193fa3d0f8d6660a6a5",
-    toaNha: {
-      _id: "62495e2f6cd8293e7aa63e94",
-      tenToaNha: "Tòa P1",
-      diaChi: "Địa chỉ tòa P1",
-      __v: 0,
-    },
-    toa: "Tòa P1",
-    soPhong: 104,
-    dienTich: "20",
-    soLuongToiDa: "3",
-    gia: "1900000",
-    dangThue: 2534000,
-    khachHang: {
-      _id: "625bda07fa3d0f8d6660a726",
-      tenKhachHang: "Hà Quốc Tuấn",
-    },
-    __v: 0,
-  },
-];
 function TinhTien() {
-  const columns: ColumnsType<any> = [
-    {
-      key: "stt",
-      title: "STT",
-      width: 60,
-      align: "center",
-      render: (text: any, record: any, index: number) => index + 1,
-    },
+  const [loading, setLoading] = useState(false);
 
-    {
-      key: "soPhong",
-      title: "Số phòng",
-      dataIndex: "soPhong",
-    },
-    {
-      key: "toa",
-      title: "Tòa",
-      dataIndex: "toa",
-    },
-    {
-      key: "dangThue",
-      title: "Số tiền",
-      dataIndex: "dangThue",
-      render: (text: any, record: any) => formatPrice(text),
-    },
-    {
-      key: "action",
-      title: "Hành động",
-      width: 300,
-      render: () => (
-        <Space>
-          <Button type="primary">Tính tiền</Button>
-          <Button type="primary" danger>
-            In
-          </Button>
-        </Space>
-      ),
-    },
-  ];
+  const [data, setData] = useState<any>([]);
+  const [thang, setThang] = useState("05/2022");
+
+  const [openTinhTien, setOpenTinhTien] = useState(false);
+  const [dataTinhTien, setDataTinhTien] = useState<any>(null);
 
   const handlePDF = (type: "view" | "down") => {
     const doc: any = new jsPDF("landscape", "mm", "a5");
@@ -168,9 +72,118 @@ function TinhTien() {
     }
   };
 
-  const handleChangeDate = (value: any, dateString: any) => {
-    console.log("❗TuanHQ🐞 💻 handleChangeDate 💻 dateString", dateString);
+  const handleOpenTinhTien = (data: any) => {
+    if (!data) {
+      return;
+    }
+    setDataTinhTien({ ...data, thang });
+    setOpenTinhTien(true);
   };
+
+  const handleCloseTinhTien = () => {
+    setDataTinhTien(null);
+    setOpenTinhTien(false);
+  };
+
+  const handleChangeDate = (value: any, dateString: any) => {
+    setThang(dateString);
+  };
+
+  const handleGetTienPhong = () => {
+    setLoading(true);
+    TienPhongService.getTienPhong()
+      .then((res) => {
+        const data = res.data.data;
+        setData(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    handleGetTienPhong();
+  }, []);
+
+  const columns: ColumnsType<any> = [
+    {
+      key: "stt",
+      title: "STT",
+      width: 60,
+      align: "center",
+      render: (text: any, record: any, index: number) => index + 1,
+    },
+    {
+      key: "tenKhachHang",
+      title: "Tên khách hàng",
+      dataIndex: "tenKhachHang",
+    },
+    {
+      key: "phongToa",
+      title: "Phòng - Tòa",
+      dataIndex: "phong",
+      render: (text: any, record: any) => {
+        return `Phòng ${record.phong?.soPhong} - ${record.phong?.toaNha?.tenToaNha}`;
+      },
+    },
+    {
+      key: "ngayTinhTien",
+      title: "Ngày tính tiền",
+      dataIndex: "hoadon",
+      render: (text: any) => {
+        const rs = text.filter((item: any) => item.thang === thang);
+        if (rs.length > 0) {
+          return <>{moment(rs.ngayTinhTien).format("DD/MM/YYYY HH:mm:ss")}</>;
+        } else {
+          return <></>;
+        }
+      },
+    },
+
+    {
+      key: "trangThai",
+      title: "Trạng thái",
+      dataIndex: "hoadon",
+      render: (text: any) => {
+        const rs = text.filter((item: any) => item.thang === thang);
+        if (rs.length > 0) {
+          return <>Đã tính tiền</>;
+        } else {
+          return <>Chưa tính tiền</>;
+        }
+      },
+    },
+
+    {
+      key: "action",
+      title: "Hành động",
+      dataIndex: "hoadon",
+      width: 300,
+      render: (text: any, record: any) => {
+        const rs = text.filter((item: any) => item.thang === thang);
+        if (rs.length > 0) {
+          return (
+            <Space>
+              <Button type="primary" danger>
+                In
+              </Button>
+              <Button type="default">Tải hóa đơn</Button>
+            </Space>
+          );
+        } else {
+          return (
+            <Button type="primary" onClick={() => handleOpenTinhTien(record)}>
+              Tính tiền
+            </Button>
+          );
+        }
+      },
+    },
+  ];
+
   return (
     <LayoutDashboard>
       <HelmetComponent title="Tính tiền phòng" />
@@ -182,13 +195,31 @@ function TinhTien() {
           picker="month"
           format="MM/YYYY"
           onChange={handleChangeDate}
+          value={moment(thang, "MM/YYYY")}
+          allowClear={false}
+          disabledDate={(current: any) => {
+            return current && current > moment().endOf("month");
+          }}
         />
 
         <Button onClick={() => handlePDF("down")}>Tải hóa đơn</Button>
         <Button onClick={() => handlePDF("view")}>In hóa đơn</Button>
         <div className="lienhe-table background__white">
-          <Table size="small" columns={columns} dataSource={data} />
+          <Table
+            loading={loading}
+            rowKey={"_id"}
+            size="small"
+            columns={columns}
+            dataSource={data}
+          />
         </div>
+
+        <ModalTinhTien
+          visible={openTinhTien}
+          onClose={handleCloseTinhTien}
+          onRefresh={handleGetTienPhong}
+          data={dataTinhTien}
+        />
       </Wrapper>
     </LayoutDashboard>
   );
