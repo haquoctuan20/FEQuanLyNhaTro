@@ -1,4 +1,4 @@
-import { Button, Space, Table } from "antd";
+import { Button, DatePicker, Space, Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import HelmetComponent from "components/HelmetComponent";
 import LayoutDashboard from "components/Layouts/LayoutDashboard";
@@ -7,8 +7,13 @@ import React from "react";
 import styled from "styled-components";
 import { formatPrice } from "utils/common";
 
+import locale from "antd/lib/date-picker/locale/vi_VN";
+
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import moment from "moment";
+
+import { font } from "assets/fonts/Roboto-Regular-normal.js";
 
 const data: any[] = [
   {
@@ -113,18 +118,58 @@ function TinhTien() {
     },
   ];
 
-  const doc: any = new jsPDF();
-  const handlePDF = () => {
+  const handlePDF = (type: "view" | "down") => {
+    const doc: any = new jsPDF("landscape", "mm", "a5");
+
+    doc.addFileToVFS("./Roboto-Regular.ttf", font);
+    doc.addFont("./Roboto-Regular.ttf", "Roboto", "normal");
+    doc.setFont("Roboto", "normal");
+
+    var finalY = doc.lastAutoTable?.finalY || 10;
+
+    doc.text("Hóa đơn phòng 101 - Tòa P1", 14, finalY + 5);
     doc.autoTable({
-      head: [["Name", "Email", "Country"]],
+      startY: finalY + 10,
+      styles: { fontSize: 12, font: "Roboto" },
+      head: [["ID", "Name", "Email", "Country", "IP-address"]],
       body: [
-        ["David", "david@example.com", "Sweden"],
-        ["Castille", "castille@example.com", "Spain"],
-        // ...
+        ["1", "ế", "dmoore0@furl.net", "China", "211.56.242.221"],
+        ["2", "Janice", "jhenry1@theatlantic.com", "Ukraine", "38.36.7.199"],
+        [
+          "3",
+          "ở",
+          "rwells2@constantcontact.com",
+          "Trinidad and Tobago",
+          "19.162.133.184",
+        ],
+        ["4", "ư", "jray3@psu.edu", "Brazil", "10.68.11.42"],
+        ["5", "ê", "jstephens4@go.com", "United States", "47.32.129.71"],
+        ["6", "ơ", "anichols5@com.com", "Canada", "18.186.38.37"],
       ],
     });
 
-    doc.save("table.pdf");
+    finalY = doc.lastAutoTable.finalY;
+    doc.text(
+      "Đây là footer: ghi thông tin nhà trọ, thời gian xuất hóa đơn: " +
+        moment(new Date()).format("DD/MM/YYYY HH:mm:ss"),
+      14,
+      finalY + 15
+    );
+    doc.text(
+      "thời gian xuất hóa đơn: " + moment(new Date()).format("DD/MM/YYYY HH:mm:ss"),
+      12,
+      finalY + 22
+    );
+
+    if (type === "down") {
+      doc.save("table.pdf");
+    } else {
+      doc.output("pdfobjectnewwindow");
+    }
+  };
+
+  const handleChangeDate = (value: any, dateString: any) => {
+    console.log("❗TuanHQ🐞 💻 handleChangeDate 💻 dateString", dateString);
   };
   return (
     <LayoutDashboard>
@@ -132,7 +177,15 @@ function TinhTien() {
       <TitlePage title="Tính tiền phòng" />
 
       <Wrapper>
-        <Button onClick={handlePDF}>Tinh Tien</Button>
+        <DatePicker
+          locale={locale}
+          picker="month"
+          format="MM/YYYY"
+          onChange={handleChangeDate}
+        />
+
+        <Button onClick={() => handlePDF("down")}>Tải hóa đơn</Button>
+        <Button onClick={() => handlePDF("view")}>In hóa đơn</Button>
         <div className="lienhe-table background__white">
           <Table size="small" columns={columns} dataSource={data} />
         </div>
