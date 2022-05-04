@@ -29,6 +29,9 @@ export const LOCALE: any = {
     nextDecade: "Next decade",
     previousCentury: "Last century",
     nextCentury: "Next century",
+    format: {
+      months: ["Thang 01"],
+    },
   },
   timePickerLocale: {
     placeholder: "Select time",

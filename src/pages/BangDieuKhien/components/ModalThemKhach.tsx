@@ -10,12 +10,12 @@ import {
   Row,
   Space,
 } from "antd";
+import locale from "antd/lib/date-picker/locale/vi_VN";
 import { NotificationError, NotificationSuccess } from "components/Notification";
-import { LOCALE } from "constants/locale";
+import moment from "moment";
 import React, { useState } from "react";
 import { PhongTroServices } from "service/PhongTroServices";
 import styled from "styled-components";
-import moment from "moment";
 import ThemThanhVien from "./ThemThanhVien";
 
 interface ModalTaoPhongTypes {
@@ -163,9 +163,10 @@ function ModalThemKhach(props: ModalTaoPhongTypes) {
                 rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
               >
                 <DatePicker
-                  locale={{ ...LOCALE }}
+                  locale={locale}
                   style={{ width: "100%" }}
                   format="DD/MM/YYYY"
+                  placeholder=""
                 />
               </Form.Item>
 

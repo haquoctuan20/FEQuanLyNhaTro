@@ -1,4 +1,9 @@
+import { ConfigProvider } from "antd";
 import "antd/dist/antd.css";
+import vi_VN from "antd/lib/locale-provider/vi_VN";
+import "bootstrap/dist/css/bootstrap.min.css";
+import moment from "moment";
+import "moment/locale/vi";
 import React from "react";
 import ReactDOM from "react-dom";
 import { HelmetProvider } from "react-helmet-async";
@@ -7,12 +12,14 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import ThemeProviderStyled from "./styledComponents/ThemeProviderStyled";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+moment.locale("vi");
 
 ReactDOM.render(
   <HelmetProvider>
     <ThemeProviderStyled>
-      <App />
+      <ConfigProvider locale={vi_VN}>
+        <App />
+      </ConfigProvider>
     </ThemeProviderStyled>
   </HelmetProvider>,
   document.getElementById("root")
