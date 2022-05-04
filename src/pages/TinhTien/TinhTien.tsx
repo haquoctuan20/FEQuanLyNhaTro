@@ -136,7 +136,7 @@ function TinhTien() {
       render: (text: any) => {
         const rs = text.filter((item: any) => item.thang === thang);
         if (rs.length > 0) {
-          return <>{moment(rs.ngayTinhTien).format("DD/MM/YYYY HH:mm:ss")}</>;
+          return <>{moment(rs[0].ngayTinhTien).format("DD/MM/YYYY HH:mm:ss")}</>;
         } else {
           return <></>;
         }
