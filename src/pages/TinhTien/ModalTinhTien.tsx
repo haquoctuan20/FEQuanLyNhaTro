@@ -115,9 +115,11 @@ function ModalTinhTien(props: Props) {
       width={1000}
     >
       {loading && <Skeleton />}
-      <div>Khách hàng: {dataTinhTien.tenKhachHang}</div>
       <div>
-        Phòng: {props.data.phong.soPhong} - {props.data.phong.toaNha.tenToaNha}
+        <b>Khách hàng:</b> {dataTinhTien.tenKhachHang}
+      </div>
+      <div>
+        <b>Phòng:</b> {props.data.phong.soPhong} - {props.data.phong.toaNha.tenToaNha}
       </div>
 
       <Table striped bordered hover>

@@ -1,16 +1,16 @@
 import { Button, DatePicker, Space, Table } from "antd";
 import locale from "antd/lib/date-picker/locale/vi_VN";
 import { ColumnsType } from "antd/lib/table";
-import { font } from "assets/fonts/Roboto-Regular-normal.js";
 import HelmetComponent from "components/HelmetComponent";
 import LayoutDashboard from "components/Layouts/LayoutDashboard";
 import TitlePage from "components/TitlePage";
-import jsPDF from "jspdf";
 import "jspdf-autotable";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { TienPhongService } from "service/TienPhongService";
 import styled from "styled-components";
+import ModalInHoaDon from "./ModalInHoaDon";
+import ModalTaiHoaDon from "./ModalTaiHoaDon";
 import ModalTinhTien from "./ModalTinhTien";
 
 function TinhTien() {
@@ -22,54 +22,38 @@ function TinhTien() {
   const [openTinhTien, setOpenTinhTien] = useState(false);
   const [dataTinhTien, setDataTinhTien] = useState<any>(null);
 
-  const handlePDF = (type: "view" | "down") => {
-    const doc: any = new jsPDF("landscape", "mm", "a5");
+  const [openInHoaDon, setOpenInHoaDon] = useState(false);
+  const [dataInHoaDon, setDataInHoaDon] = useState(null);
 
-    doc.addFileToVFS("./Roboto-Regular.ttf", font);
-    doc.addFont("./Roboto-Regular.ttf", "Roboto", "normal");
-    doc.setFont("Roboto", "normal");
+  const [openTaiHoaDon, setOpenTaiHoaDon] = useState(false);
+  const [dataTaiHoaDon, setDataTaiHoaDon] = useState(null);
 
-    var finalY = doc.lastAutoTable?.finalY || 10;
-
-    doc.text("Hóa đơn phòng 101 - Tòa P1", 14, finalY + 5);
-    doc.autoTable({
-      startY: finalY + 10,
-      styles: { fontSize: 12, font: "Roboto" },
-      head: [["ID", "Name", "Email", "Country", "IP-address"]],
-      body: [
-        ["1", "ế", "dmoore0@furl.net", "China", "211.56.242.221"],
-        ["2", "Janice", "jhenry1@theatlantic.com", "Ukraine", "38.36.7.199"],
-        [
-          "3",
-          "ở",
-          "rwells2@constantcontact.com",
-          "Trinidad and Tobago",
-          "19.162.133.184",
-        ],
-        ["4", "ư", "jray3@psu.edu", "Brazil", "10.68.11.42"],
-        ["5", "ê", "jstephens4@go.com", "United States", "47.32.129.71"],
-        ["6", "ơ", "anichols5@com.com", "Canada", "18.186.38.37"],
-      ],
-    });
-
-    finalY = doc.lastAutoTable.finalY;
-    doc.text(
-      "Đây là footer: ghi thông tin nhà trọ, thời gian xuất hóa đơn: " +
-        moment(new Date()).format("DD/MM/YYYY HH:mm:ss"),
-      14,
-      finalY + 15
-    );
-    doc.text(
-      "thời gian xuất hóa đơn: " + moment(new Date()).format("DD/MM/YYYY HH:mm:ss"),
-      12,
-      finalY + 22
-    );
-
-    if (type === "down") {
-      doc.save("table.pdf");
-    } else {
-      doc.output("pdfobjectnewwindow");
+  const handleOpenInHoaDon = (data: any) => {
+    if (!data) {
+      return;
     }
+
+    setDataInHoaDon({ ...data, thang });
+    setOpenInHoaDon(true);
+  };
+
+  const handleCloseInHoaDon = () => {
+    setDataInHoaDon(null);
+    setOpenInHoaDon(false);
+  };
+
+  const handleOpenTaiHoaDon = (data: any) => {
+    if (!data) {
+      return;
+    }
+
+    setDataTaiHoaDon({ ...data, thang });
+    setOpenTaiHoaDon(true);
+  };
+
+  const handleCloseTaiHoaDon = () => {
+    setDataTaiHoaDon(null);
+    setOpenTaiHoaDon(false);
   };
 
   const handleOpenTinhTien = (data: any) => {
@@ -167,10 +151,12 @@ function TinhTien() {
         if (rs.length > 0) {
           return (
             <Space>
-              <Button type="primary" danger>
+              <Button type="primary" danger onClick={() => handleOpenInHoaDon(rs[0])}>
                 In
               </Button>
-              <Button type="default">Tải hóa đơn</Button>
+              <Button type="default" onClick={() => handleOpenTaiHoaDon(rs[0])}>
+                Tải hóa đơn
+              </Button>
             </Space>
           );
         } else {
@@ -202,8 +188,6 @@ function TinhTien() {
           }}
         />
 
-        <Button onClick={() => handlePDF("down")}>Tải hóa đơn</Button>
-        <Button onClick={() => handlePDF("view")}>In hóa đơn</Button>
         <div className="lienhe-table background__white">
           <Table
             loading={loading}
@@ -219,6 +203,20 @@ function TinhTien() {
           onClose={handleCloseTinhTien}
           onRefresh={handleGetTienPhong}
           data={dataTinhTien}
+        />
+
+        <ModalInHoaDon
+          visible={openInHoaDon}
+          onClose={handleCloseInHoaDon}
+          onRefresh={handleGetTienPhong}
+          data={dataInHoaDon}
+        />
+
+        <ModalTaiHoaDon
+          visible={openTaiHoaDon}
+          onClose={handleCloseTaiHoaDon}
+          onRefresh={handleGetTienPhong}
+          data={dataTaiHoaDon}
         />
       </Wrapper>
     </LayoutDashboard>
