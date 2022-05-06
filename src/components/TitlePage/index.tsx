@@ -1,5 +1,8 @@
-import styled from 'styled-components';
-import React from 'react';
+import styled from "styled-components";
+import React from "react";
+import { Button } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   title: string;
@@ -7,7 +10,22 @@ interface Props {
 
 function TitlePage(props: Props) {
   const { title } = props;
-  return <Wrapper>{title}</Wrapper>;
+
+  const navigate = useNavigate();
+
+  return (
+    <Wrapper>
+      <Button
+        icon={<ArrowLeftOutlined style={{ fontSize: " 24px" }} />}
+        type="link"
+        className="me-1"
+        onClick={() => {
+          navigate(-1);
+        }}
+      ></Button>
+      <div>{title}</div>
+    </Wrapper>
+  );
 }
 
 export default TitlePage;
@@ -17,4 +35,7 @@ const Wrapper = styled.div`
   height: 40px;
   font-size: 22px;
   font-weight: 500;
+
+  display: flex;
+  align-items: center;
 `;

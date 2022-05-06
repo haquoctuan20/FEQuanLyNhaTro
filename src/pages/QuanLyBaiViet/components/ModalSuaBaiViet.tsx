@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import { BaiVietService } from "service/baiVietService";
 import styled from "styled-components";
+import { formatPrice } from "utils/common";
 
 interface Props {
   visible: boolean;
@@ -114,7 +115,45 @@ function ModalSuaBaiViet(props: Props) {
 
             <div className="baiViet">
               <div className="baiViet-label">Phòng: </div>
-              <div className="baiViet-content">{data?.phong?.soPhong}</div>
+              <div className="baiViet-content">
+                {data?.phong?.soPhong} - {data?.phong?.toaNha?.tenToaNha}
+              </div>
+            </div>
+
+            <div className="baiViet">
+              <div className="baiViet-label">Giá: </div>
+              <div className="baiViet-content">{formatPrice(data?.phong?.gia)}</div>
+            </div>
+
+            <div className="baiViet">
+              <div className="baiViet-label">Diện tích: </div>
+              <div className="baiViet-content">{data?.phong?.dienTich} m2</div>
+            </div>
+
+            <div className="baiViet">
+              <div className="baiViet-label">Giá điện: </div>
+              <div className="baiViet-content">
+                {formatPrice(data?.phong?.giaDien)} / số
+              </div>
+            </div>
+
+            <div className="baiViet">
+              <div className="baiViet-label">Giá nước: </div>
+              <div className="baiViet-content">
+                {formatPrice(data?.phong?.giaNuoc)} / người
+              </div>
+            </div>
+
+            <div className="baiViet">
+              <div className="baiViet-label">Phí dịch vụ: </div>
+              <div className="baiViet-content">
+                {formatPrice(data?.phong?.phiDichVu)} / người
+              </div>
+            </div>
+
+            <div className="">
+              <div className="baiViet-label">Địa chỉ: </div>
+              <div className="">{data?.phong?.toaNha?.diaChi}</div>
             </div>
           </Col>
 

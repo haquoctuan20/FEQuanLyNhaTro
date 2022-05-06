@@ -27,7 +27,7 @@ function TrangChu() {
             <Carousel.Item className="home-carousel-item">
               <img
                 className="home-carousel-image"
-                src="https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg"
+                src="https://res.cloudinary.com/tuanhq/image/upload/v1651822220/Slide01_xyhrxj.jpg"
                 alt="First slide"
               />
               {/* <Carousel.Caption>
@@ -39,7 +39,7 @@ function TrangChu() {
             <Carousel.Item>
               <img
                 className="home-carousel-image"
-                src="https://blog.ohanaliving.vn/content/images/2020/05/cach-trang-tri-phong-tro-co-gac-lung-8-1.jpg"
+                src="https://res.cloudinary.com/tuanhq/image/upload/v1651822706/thiet-ke-nha-pho-co-gac-lung-11_fufvvu.png"
                 alt="Second slide"
               />
 
@@ -52,7 +52,7 @@ function TrangChu() {
             <Carousel.Item>
               <img
                 className="home-carousel-image"
-                src="https://suachuanhathanhthinh.com/wp-content/uploads/2020/08/bien-phong-nha-tro-cu-thanh-moi-o-hcm-7-600x330.jpg"
+                src="https://res.cloudinary.com/tuanhq/image/upload/v1651822709/Trang-tri-phong-tro-sinh-vien_vp8o7t.jpg"
                 alt="Third slide"
               />
 
@@ -81,7 +81,7 @@ function TrangChu() {
         </div>
 
         <Container>
-          <Row className="containerInfo">
+          <Row className="containerInfo" gutter={[8, 8]}>
             <Col lg={6}>
               <div className="info">
                 <VideoCameraOutlined className="info-icon" />
@@ -135,7 +135,7 @@ function TrangChu() {
             <Col md={12} lg={6}>
               <Image
                 width="100%"
-                src="https://aftavietnam.com.vn/wp-content/uploads/2021/06/mau-phong-tro-co-gac-lung-dep-12.jpg.jpg"
+                src="https://phuvinhthinh.com/wp-content/uploads/2018/07/3shomes.jpg"
                 className="image-demo"
                 preview={{
                   mask: (
@@ -150,7 +150,7 @@ function TrangChu() {
             <Col md={12} lg={6}>
               <Image
                 width="100%"
-                src="https://nhaodanang.com/wp-content/uploads/2020/08/chon-cau-thang-gac-lung-cho-phong-tro-dien-tich-nho-2.jpg"
+                src="http://img.timphongtro.vn/Images/item/5f9be07395909.jpg"
                 className="image-demo"
                 preview={{
                   mask: (
@@ -165,7 +165,7 @@ function TrangChu() {
             <Col md={12} lg={6}>
               <Image
                 width="100%"
-                src={`https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-6/273964566_2108108419337260_8610920058290988077_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=5cd70e&_nc_ohc=OhoGqoqcQxIAX_TUMxe&_nc_ht=scontent.fhan14-2.fna&oh=00_AT8Kaf3bdwhTSLiNNSO7AjztMqU5OP1jMT7wjfhOWB4a-Q&oe=625FE8FE`}
+                src={`https://phongnhatro.com/upload/files/images/2018/06/original/20180602_072245_697773fb067527ae7c55df3e0e8079a2.jpg`}
                 className="image-demo"
                 preview={{
                   mask: (

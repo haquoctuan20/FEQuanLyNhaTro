@@ -12,6 +12,8 @@ import ModalChiTiet from "./components/ModalChiTiet";
 function QuanLyLienHe() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState<number>(1);
+  const [size] = useState<number>(10);
 
   const [xemLienHe, setXemLienHe] = useState(null);
   const [openXemChiTiet, setOpenXemChiTiet] = useState(false);
@@ -167,6 +169,14 @@ function QuanLyLienHe() {
             columns={columns}
             dataSource={data}
             loading={loading}
+            pagination={{
+              current: page,
+              pageSize: size,
+              total: data.length,
+              onChange: (page) => setPage(page),
+              showTotal: (total, range) =>
+                `Đang xem ${range[0]} đến ${range[1]} trong tổng số ${total} mục`,
+            }}
           />
         </div>
       </Wrapper>

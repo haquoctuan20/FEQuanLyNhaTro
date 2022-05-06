@@ -144,7 +144,12 @@ function DanhSachPhongTro() {
               )}
 
               <div className="pagination">
-                <Pagination current={page} total={total} onChange={handleChangePage} />
+                <Pagination
+                  pageSize={size}
+                  current={page}
+                  total={total}
+                  onChange={handleChangePage}
+                />
               </div>
             </Col>
           </Row>

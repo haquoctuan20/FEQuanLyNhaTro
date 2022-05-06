@@ -4,7 +4,7 @@ import {
   HomeOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Button, Col, Divider, Popconfirm, Row, Space } from "antd";
+import { Button, Col, Pagination, Popconfirm, Row, Space } from "antd";
 import HelmetComponent from "components/HelmetComponent";
 import LayoutDashboard from "components/Layouts/LayoutDashboard";
 import { NotificationError, NotificationSuccess } from "components/Notification";
@@ -15,6 +15,7 @@ import { PhongTroServices } from "service/PhongTroServices";
 import { ToaNhaServices } from "service/ToaNhaServices";
 import styled from "styled-components";
 import { formatPrice } from "utils/common";
+import ModalSuaKhach from "./components/ModalSuaKhach";
 import ModalSuaPhong from "./components/ModalSuaPhong";
 import ModalTaoPhong from "./components/ModalTaoPhong";
 import ModalThemKhach from "./components/ModalThemKhach";
@@ -25,7 +26,7 @@ function BangDieuKhien() {
   const [dataPhong, setDataPhong] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [toaNha, setToaNha] = useState([]);
+  const [toaNha, setToaNha] = useState<any>([]);
   const [toaNhaSelected, settoaNhaSelected] = useState("all");
 
   const [openThemKhach, setOpenThemKhach] = useState(false);
@@ -33,6 +34,41 @@ function BangDieuKhien() {
 
   const [phongEdit, setPhongEdit] = useState({});
   const [openSuaPhong, setOpenSuaPhong] = useState(false);
+
+  const [openSuaKhach, setOpenSuaKhach] = useState(false);
+  const [khachEdit, setKhachEdit] = useState(null);
+
+  const [page, setPage] = useState(1);
+  const [size] = useState(10);
+  const [total, setTotal] = useState(0);
+
+  const handleChangePage = (page) => {
+    setPage(page);
+
+    if (toaNhaSelected !== "all") {
+      handleGetAllPhongTro(page, toaNhaSelected);
+      return;
+    }
+
+    handleGetAllPhongTro(page);
+  };
+
+  // SUA KHACH HANG
+  const handleOpenSuaKhach = (khach: any) => {
+    if (!khach) {
+      return;
+    }
+
+    setOpenSuaKhach(true);
+    setKhachEdit(khach);
+  };
+
+  const handleCloseSuaKhach = () => {
+    setOpenSuaKhach(false);
+    setKhachEdit(null);
+  };
+
+  // END SUA KHACH HANG
 
   // TẠO PHÒNG
   const handleOpenTaoPhong = () => {
@@ -72,12 +108,26 @@ function BangDieuKhien() {
   // END Sua Phong
 
   const handleFilterToaNha = (id: string) => {
+    setPage(1);
     settoaNhaSelected(id);
+
+    if (id === "all") {
+      handleGetAllPhongTro(1);
+      return;
+    }
+    handleGetAllPhongTro(1, id);
   };
 
-  const handleGetAllPhongTro = () => {
+  const handleGetAllPhongTro = (pageValue: number = 1, toaNha: any = null) => {
     setLoading(true);
-    PhongTroServices.getAll()
+
+    const params = {
+      page: pageValue,
+      size,
+      toaNha,
+    };
+
+    PhongTroServices.getAll(params)
       .then((res) => {
         if (res.data.code !== 0) {
           NotificationError("Lỗi khi lấy danh sách phòng trọ", "");
@@ -85,6 +135,7 @@ function BangDieuKhien() {
         }
 
         setDataPhong(res.data.data);
+        setTotal(res.data.total);
       })
       .catch((err) => {
         NotificationError("Lỗi khi lấy danh sách phòng trọ", "");
@@ -95,7 +146,9 @@ function BangDieuKhien() {
   };
 
   const handleRefresh = () => {
-    handleGetAllPhongTro();
+    handleGetAllPhongTro(1);
+    setPage(1);
+    settoaNhaSelected("all");
   };
 
   const handleDeleteRoom = (id: string) => {
@@ -148,17 +201,17 @@ function BangDieuKhien() {
   };
 
   useEffect(() => {
-    handleGetAllPhongTro();
+    handleGetAllPhongTro(1);
     getAllToaNha();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <LayoutDashboard>
       <HelmetComponent title="Quản lý phòng trọ" />
       <TitlePage title="Quản lý phòng trọ" />
-
       <Wrapper>
-        <div className="containerAction">
+        <div className="containerAction mb-3">
           <Space>
             <Button
               key={"#"}
@@ -189,7 +242,12 @@ function BangDieuKhien() {
           </Space>
         </div>
 
-        <Divider orientation="left">Địa chỉ</Divider>
+        {toaNhaSelected !== "all" && (
+          <div className="mb-3">
+            <b>Địa chỉ:</b>{" "}
+            {toaNha.find((item: any) => item._id === toaNhaSelected)?.diaChi}
+          </div>
+        )}
 
         {loading ? (
           <SpinLoading />
@@ -222,7 +280,11 @@ function BangDieuKhien() {
                             <Button type="primary">Trả phòng</Button>
                           </Popconfirm>
 
-                          <Button type="primary" danger>
+                          <Button
+                            type="primary"
+                            danger
+                            onClick={() => handleOpenSuaKhach(p.khachHang)}
+                          >
                             Sửa
                           </Button>
                         </Space>
@@ -272,25 +334,44 @@ function BangDieuKhien() {
           </Row>
         )}
 
+        <div className="pagination">
+          <Pagination
+            current={page}
+            total={total}
+            pageSize={size}
+            onChange={handleChangePage}
+            showTotal={(total, range) =>
+              `Đang xem ${range[0]} đến ${range[1]} trong tổng số ${total} mục`
+            }
+          />
+        </div>
+
         <ModalTaoPhong
           visible={openTaoPhong}
           onClose={handleCloseTaoPhong}
-          onRefresh={handleGetAllPhongTro}
+          onRefresh={handleRefresh}
         />
 
         <ModalThemKhach
           visible={openThemKhach}
           onClose={handleCloseThemKhach}
-          onRefresh={handleGetAllPhongTro}
+          onRefresh={handleRefresh}
           idPhong={idPhong}
         />
 
         <ModalSuaPhong
           visible={openSuaPhong}
           onClose={handleCloseSuaPhong}
-          onRefresh={handleGetAllPhongTro}
+          onRefresh={handleRefresh}
           data={phongEdit}
         ></ModalSuaPhong>
+
+        <ModalSuaKhach
+          visible={openSuaKhach}
+          onClose={handleCloseSuaKhach}
+          onRefresh={handleRefresh}
+          data={khachEdit}
+        ></ModalSuaKhach>
       </Wrapper>
     </LayoutDashboard>
   );
@@ -300,9 +381,15 @@ export default BangDieuKhien;
 
 const Wrapper = styled.div`
   width: 100%;
-  min-height: 100%;
+  /* min-height: 100%; */
   padding: 12px;
   background: #fff;
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0px;
+  }
 
   .containerAction {
     display: flex;

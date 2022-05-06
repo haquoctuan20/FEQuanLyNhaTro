@@ -15,7 +15,7 @@ function ChiSoDien() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [dangThue, setDangThue] = useState<"all" | true | false>("all");
+  const [dangThue, setDangThue] = useState<"all" | true | false>(true);
 
   const onFinish = (values: any, record: any) => {
     const param = {

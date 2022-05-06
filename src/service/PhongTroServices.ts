@@ -1,9 +1,10 @@
 import apiClient from "./apiClient";
 
 export const PhongTroServices = {
-  getAll() {
+  getAll(params: any) {
     return apiClient.request({
       method: "GET",
+      params: params,
       url: "api/v1/phong",
     });
   },
@@ -28,6 +29,14 @@ export const PhongTroServices = {
       method: "POST",
       data,
       url: "api/v1/khachhang",
+    });
+  },
+
+  updateCustomer(id, data) {
+    return apiClient.request({
+      method: "put",
+      data,
+      url: "api/v1/khachhang/" + id,
     });
   },
 

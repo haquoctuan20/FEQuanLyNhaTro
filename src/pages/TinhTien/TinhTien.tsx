@@ -15,6 +15,8 @@ import ModalTinhTien from "./ModalTinhTien";
 
 function TinhTien() {
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState<number>(1);
+  const [size] = useState<number>(10);
 
   const [data, setData] = useState<any>([]);
   const [thang, setThang] = useState("05/2022");
@@ -176,6 +178,7 @@ function TinhTien() {
       <TitlePage title="Tính tiền phòng" />
 
       <Wrapper>
+        <span>Chọn tháng: </span>
         <DatePicker
           locale={locale}
           picker="month"
@@ -187,31 +190,35 @@ function TinhTien() {
             return current && current > moment().endOf("month");
           }}
         />
-
-        <div className="lienhe-table background__white">
+        <div className="lienhe-table background__white mt-3">
           <Table
             loading={loading}
             rowKey={"_id"}
             size="small"
             columns={columns}
             dataSource={data}
+            pagination={{
+              current: page,
+              pageSize: size,
+              total: data.length,
+              onChange: (page) => setPage(page),
+              showTotal: (total, range) =>
+                `Đang xem ${range[0]} đến ${range[1]} trong tổng số ${total} mục`,
+            }}
           />
         </div>
-
         <ModalTinhTien
           visible={openTinhTien}
           onClose={handleCloseTinhTien}
           onRefresh={handleGetTienPhong}
           data={dataTinhTien}
         />
-
         <ModalInHoaDon
           visible={openInHoaDon}
           onClose={handleCloseInHoaDon}
           onRefresh={handleGetTienPhong}
           data={dataInHoaDon}
         />
-
         <ModalTaiHoaDon
           visible={openTaiHoaDon}
           onClose={handleCloseTaiHoaDon}

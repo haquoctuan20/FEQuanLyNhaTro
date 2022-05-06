@@ -39,30 +39,33 @@ function ModalChiTiet(props: Props) {
 
             <div>
               <span className="chiTiet-label">Nội dung:</span>
-              {data?.noiDung} Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Qui voluptatibus sint debitis aut cupiditate nobis. Harum voluptatem
-              incidunt architecto, et, quia distinctio quae sed corporis rerum alias natus
-              nesciunt veritatis.
+              {data?.noiDung}
             </div>
           </Col>
 
           <Col span={12}>
-            <div>
-              <span className="chiTiet-label">Phòng: </span>
-              {data?.phong?.soPhong} - {data?.phong?.toaNha?.tenToaNha}
-            </div>
-            <div>
-              <span className="chiTiet-label">Giá phòng: </span>
-              {formatPrice(data?.phong?.soPhong)}
-            </div>
-            <div>
-              <span className="chiTiet-label">Trạng thái: </span>
-              {data?.phong?.trangThai ? "Đang cho thuê" : "Trống"}
-            </div>
-            <div>
-              <span className="chiTiet-label">Số lượng phù hợp: </span>
-              {data?.phong?.soLuongToiDa}
-            </div>
+            {data?.phong ? (
+              <>
+                <div>
+                  <span className="chiTiet-label">Phòng: </span>
+                  {data?.phong?.soPhong} - {data?.phong?.toaNha?.tenToaNha}
+                </div>
+                <div>
+                  <span className="chiTiet-label">Giá phòng: </span>
+                  {formatPrice(data?.phong?.soPhong)}
+                </div>
+                <div>
+                  <span className="chiTiet-label">Trạng thái: </span>
+                  {data?.phong?.trangThai ? "Đang cho thuê" : "Trống"}
+                </div>
+                <div>
+                  <span className="chiTiet-label">Số lượng phù hợp: </span>
+                  {data?.phong?.soLuongToiDa}
+                </div>
+              </>
+            ) : (
+              <div>Phòng này đã xóa khỏi danh sách phòng trọ</div>
+            )}
           </Col>
         </Row>
         <div className="chiTiet-containerBtn">

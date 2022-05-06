@@ -11,6 +11,8 @@ import ModalSuaBaiViet from "./components/ModalSuaBaiViet";
 
 function QuanLyBaiViet() {
   const [baiViet, setBaiViet] = useState([]);
+  const [page, setPage] = useState<number>(1);
+  const [size] = useState<number>(10);
 
   const [loading, setloading] = useState(false);
 
@@ -101,6 +103,8 @@ function QuanLyBaiViet() {
       key: "phong",
       title: "Phòng - Tòa",
       dataIndex: "phong",
+      width: 200,
+
       render: (text: any, record: any) => (
         <>
           Phòng {text.soPhong} - {text.toaNha.tenToaNha}
@@ -112,6 +116,12 @@ function QuanLyBaiViet() {
       title: "Nội dung",
       dataIndex: "noiDung",
       ellipsis: true,
+      render: (text: any, record: any) => (
+        <div
+          style={{ height: "60px", textOverflow: "ellipsis", whiteSpace: "normal" }}
+          dangerouslySetInnerHTML={{ __html: text }}
+        ></div>
+      ),
     },
     {
       key: "trangThai",
@@ -180,6 +190,14 @@ function QuanLyBaiViet() {
             size="small"
             columns={columns}
             dataSource={baiViet}
+            pagination={{
+              current: page,
+              pageSize: size,
+              total: baiViet.length,
+              onChange: (page) => setPage(page),
+              showTotal: (total, range) =>
+                `Đang xem ${range[0]} đến ${range[1]} trong tổng số ${total} mục`,
+            }}
           />
         </div>
       </Wrapper>

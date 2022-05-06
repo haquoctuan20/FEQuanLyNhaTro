@@ -22,10 +22,7 @@ function LayoutDashboard(props: Props) {
 
   const content = (
     <ContentStyled>
-      <div>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, veniam
-        voluptatibus? Veritatis tenetur, ullam fugiat velit hic ratione quos voluptate.
-      </div>
+      <div></div>
 
       <div className="layout-containerButton">
         <Button type="link"> </Button>
