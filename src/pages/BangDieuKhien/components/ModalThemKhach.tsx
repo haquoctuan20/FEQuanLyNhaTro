@@ -209,7 +209,7 @@ function ModalThemKhach(props: ModalTaoPhongTypes) {
               <Form.Item
                 labelAlign="left"
                 name="ngayHetHan"
-                label="Ngày hết hạn:"
+                label="Ngày hết hợp đồng:"
                 rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
                 initialValue={moment().add(1, "y")}
               >
