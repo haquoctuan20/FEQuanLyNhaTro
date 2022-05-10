@@ -5,7 +5,6 @@ import "jspdf-autotable";
 import moment from "moment";
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
-import { LoginService } from "service/LoginService";
 import { formatPrice } from "utils/common";
 
 interface Props {
