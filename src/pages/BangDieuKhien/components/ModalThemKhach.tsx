@@ -51,6 +51,7 @@ function ModalThemKhach(props: ModalTaoPhongTypes) {
 
   const handleCancel = () => {
     onClose();
+    setThanhVien([]);
     form.resetFields();
   };
 
@@ -59,6 +60,8 @@ function ModalThemKhach(props: ModalTaoPhongTypes) {
       ...values,
       idPhong,
       ngayCap: moment(values.ngayCap).valueOf(),
+      ngayHetHan: moment(values.ngayHetHan).valueOf(),
+      ngayLap: moment(values.ngayLap).valueOf(),
       thanhVien,
     };
 
@@ -186,6 +189,36 @@ function ModalThemKhach(props: ModalTaoPhongTypes) {
                 rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
               >
                 <Input />
+              </Form.Item>
+
+              <Form.Item
+                labelAlign="left"
+                name="ngayLap"
+                label="Ngày lập hợp đồng:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+                initialValue={moment()}
+              >
+                <DatePicker
+                  locale={locale}
+                  style={{ width: "100%" }}
+                  format="DD/MM/YYYY"
+                  placeholder=""
+                />
+              </Form.Item>
+
+              <Form.Item
+                labelAlign="left"
+                name="ngayHetHan"
+                label="Ngày hết hạn:"
+                rules={[{ required: true, message: "Trường này bắt buộc nhập" }]}
+                initialValue={moment().add(1, "y")}
+              >
+                <DatePicker
+                  locale={locale}
+                  style={{ width: "100%" }}
+                  format="DD/MM/YYYY"
+                  placeholder=""
+                />
               </Form.Item>
 
               <Form.Item wrapperCol={{ offset: 6, span: 18 }}>

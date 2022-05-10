@@ -1,10 +1,11 @@
-import { Modal } from "antd";
+import { Input, Modal } from "antd";
 import { font } from "assets/fonts/Roboto-Regular-normal.js";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import { Table } from "react-bootstrap";
+import { LoginService } from "service/LoginService";
 import { formatPrice } from "utils/common";
 
 interface Props {
@@ -16,6 +17,12 @@ interface Props {
 
 function ModalInHoaDon(props: Props) {
   const { data } = props;
+
+  const [note, setNote] =
+    useState(` *Nếu chuyển khoản vui lòng ghi đầy đủ nội dung chuyển tiền: số phòng + tên tòa nhà
+  *Số tài khoản: 6443927 ngân hàng ACB Hà Nội: Chủ tài khoản Lê Tiến Hải
+  *Mọi thắc mắc vui lòng liên hệ: 0978.692.365(Hải)
+  *Hạn đóng cuối cùng của quý khách là: 31/05/2022`);
 
   const handleOk = () => {
     const doc: any = new jsPDF("portrait", "mm", "a4");
@@ -75,24 +82,7 @@ function ModalInHoaDon(props: Props) {
     doc.text(`Người nộp tiền ký`, 50, finalY + 10);
     doc.text(`Người thu tiền ký`, 150, finalY + 10);
 
-    doc.text(
-      `*Nếu chuyển khoản vui lòng ghi đầy đủ nội dung chuyển tiền: số phòng + tên tòa nhà`,
-      12,
-      finalY + 50
-    );
-    doc.text(
-      `*Số tài khoản: 6443927 ngân hàng ACB Hà Nội: Chủ tài khoản Lê Tiến Hải`,
-      12,
-      finalY + 56
-    );
-    doc.text(`*Mọi thắc mắc vui lòng liên hệ: 0978.692.365(Hải)`, 12, finalY + 62);
-    doc.text(
-      `*Hạn đóng cuối cùng của quý khách là: ${moment()
-        .endOf("month")
-        .format("DD/MM/YYYY")}`,
-      12,
-      finalY + 68
-    );
+    doc.text(note, 12, finalY + 50);
 
     doc.setFontSize(10);
     doc.text(
@@ -100,10 +90,12 @@ function ModalInHoaDon(props: Props) {
       12,
       finalY + 80
     );
+    doc.text(`Người tính hóa đơn: ${data.nguoiTinhTien}`, 12, finalY + 86);
+
     doc.text(
       `Ngày in: ${moment(new Date()).format("DD/MM/YYYY HH:mm:ss")}`,
       12,
-      finalY + 86
+      finalY + 100
     );
 
     doc.output("pdfobjectnewwindow");
@@ -136,7 +128,6 @@ function ModalInHoaDon(props: Props) {
         <b>Tháng:</b> {data.thang}
       </div>
       <br />
-
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -188,6 +179,19 @@ function ModalInHoaDon(props: Props) {
           </tr>
         </tbody>
       </Table>
+
+      <div>Ghi chú:</div>
+      <Input.TextArea
+        rows={6}
+        value={note}
+        onChange={(e) => {
+          setNote(e.target.value);
+        }}
+      ></Input.TextArea>
+      <div>
+        Ngày tính hóa đơn: {moment(data?.ngayTinhTien).format("DD/MM/YYYY HH:mm:ss")}
+      </div>
+      <div>Người tính hóa đơn: {data?.nguoiTinhTien}</div>
     </Modal>
   );
 }

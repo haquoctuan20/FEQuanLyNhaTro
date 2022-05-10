@@ -3,6 +3,7 @@ import { NotificationError, NotificationSuccess } from "components/Notification"
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import { LoginService } from "service/LoginService";
 import { TienPhongService } from "service/TienPhongService";
 import { formatPrice, generateId } from "utils/common";
 
@@ -66,10 +67,13 @@ function ModalTinhTien(props: Props) {
     if (!props.visible || !props.data) {
       return;
     }
+    const dataAccount = LoginService.getDataLocalStorage();
+
     const param: any = {
       id: generateId() + props.data.thang,
       idKhachHang: props.data._id,
       ngayTinhTien: moment(new Date()).valueOf(),
+      nguoiTinhTien: dataAccount?.fullname,
 
       thang: props.data.thang,
       tenKhachHang: props.data.tenKhachHang,

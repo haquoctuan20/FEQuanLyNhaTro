@@ -14,6 +14,7 @@ interface Props {
 function LayoutDashboard(props: Props) {
   const { children } = props;
   const navigate = useNavigate();
+  const dataAccount = LoginService.getDataLocalStorage();
 
   const handleLogout = () => {
     LoginService.logoutAPI();
@@ -22,7 +23,10 @@ function LayoutDashboard(props: Props) {
 
   const content = (
     <ContentStyled>
-      <div></div>
+      <div>
+        <b>Tên tài khoản: </b>
+        {dataAccount?.fullname}
+      </div>
 
       <div className="layout-containerButton">
         <Button type="link"> </Button>
