@@ -30,7 +30,7 @@ function LeftMenu() {
       key: "chi-so-dien",
       icon: <BoxPlotOutlined style={{ fontSize: "22px" }} />,
       path: "/admin/chi-so-dien",
-      title: "Chỉ số diện",
+      title: "Nhập chỉ số diện",
     },
     {
       key: "tinh-tien",
