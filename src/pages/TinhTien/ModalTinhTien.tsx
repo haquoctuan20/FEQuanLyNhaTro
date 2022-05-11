@@ -114,7 +114,7 @@ function ModalTinhTien(props: Props) {
       onOk={handleOk}
       onCancel={handleCancel}
       maskClosable={false}
-      okText="Tính tiền"
+      okText="Xác nhận"
       cancelText="Hủy"
       width={1000}
     >

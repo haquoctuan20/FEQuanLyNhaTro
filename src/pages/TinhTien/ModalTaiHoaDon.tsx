@@ -112,7 +112,7 @@ function ModalTaiHoaDon(props: Props) {
       onOk={handleOk}
       onCancel={handleCancel}
       maskClosable={false}
-      okText="Tải hóa đơn"
+      okText="Xác nhận"
       cancelText="Đóng"
       width={1000}
     >
