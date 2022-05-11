@@ -130,7 +130,7 @@ function QuanLyBaiViet() {
       render: (text: any, record: any) => (
         <>
           {text ? (
-            <div className="trangThai_hien">Đăng hiển thị</div>
+            <div className="trangThai_hien">Đang hiển thị</div>
           ) : (
             <div className="trangThai_an">Đang ẩn</div>
           )}
