@@ -56,7 +56,7 @@ function ModalChiTiet(props: Props) {
                 </div>
                 <div>
                   <span className="chiTiet-label">Trạng thái: </span>
-                  {data?.phong?.trangThai ? "Đang cho thuê" : "Trống"}
+                  {data?.phong?.dangThue ? "Đang cho thuê" : "Trống"}
                 </div>
                 <div>
                   <span className="chiTiet-label">Số lượng phù hợp: </span>
