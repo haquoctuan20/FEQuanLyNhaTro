@@ -150,7 +150,7 @@ function TrangChu() {
             <Col md={12} lg={6}>
               <Image
                 width="100%"
-                src="http://img.timphongtro.vn/Images/item/5f9be07395909.jpg"
+                src="https://res.cloudinary.com/tuanhq/image/upload/v1652252252/280361755_543646070442248_8825858955940236489_n_w1xnvb.jpg"
                 className="image-demo"
                 preview={{
                   mask: (
